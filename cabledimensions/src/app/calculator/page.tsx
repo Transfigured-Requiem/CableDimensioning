@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { baseCurrent } from "../functions/calculator"
+import { ambientTemperature } from "../functions/ambientTemperature"
 import React, { useState } from "react"
 import { Terminal } from "lucide-react"
 
@@ -29,6 +30,11 @@ export default function Calculator() {
 	const [apparentPower, setApparentPower] = useState("")
 	const [powerFactor, setPowerFactor] = useState("")
 	const [selectedVoltage, setSelectedVoltage] = useState("") // Default voltage
+	const [calculatedIb, setCalculatedIb] = useState(null) // State to store the calculated Ib
+	//const [selectedMedium, setSelectedMedium] = useState("air")
+	const [selectedInsulation, setSelectedInsulation] = useState("") // 0: PVC | 1: XLPE or EPR
+	const [selectedTemperature, setSelectedTemperature] = useState("")
+	const [selectedMethod, setSelectedMethod] = useState("")
 
 	// Function to handle input changes
 	const handleApparentPowerChange = (event) => {
@@ -44,6 +50,15 @@ export default function Calculator() {
 		setSelectedVoltage(event.target.value)
 	}
 
+	const handleInsulationChange = (event) => {
+		setSelectedInsulation(event.target.value)
+	}
+
+	// Function to handle changes in installation method
+	const handleMethodChange = (event) => {
+		setSelectedMethod(event.target.value)
+	}
+
 	// Calculate Ib
 	const calculateIb = () => {
 		// Convert input values to numbers and check for validity
@@ -56,6 +71,25 @@ export default function Calculator() {
 		} else {
 			return "Invalid input"
 		}
+	}
+	const calculateTempConst = () => {
+		const method = selectedMethod
+		const temp = parseFloat(selectedTemperature) // Parse the input temperature as a float
+		const insulation = parseFloat(selectedInsulation)
+
+		if (!isNaN(temp) && temp >= 10) {
+			return ambientTemperature(method, temp, insulation)
+		} else {
+			return "Invalid temperature input"
+		}
+	}
+
+	// Function to reset the input fields
+	const handleCancel = () => {
+		setApparentPower("")
+		setPowerFactor("")
+		setSelectedVoltage("")
+		setCalculatedIb(null)
 	}
 	return (
 		<div className="m-8 flex justify-center justify-items-center justify-self-center">
@@ -83,24 +117,39 @@ export default function Calculator() {
 								</Select>
 							</div>
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="number-of-phases">Number of phases</Label>
+								<Label htmlFor="number-of-phases">Insulation material</Label>
 								<Select>
 									<SelectTrigger id="framework">
 										<SelectValue placeholder="Select" />
 									</SelectTrigger>
-									<SelectContent position="popper">
-										<SelectItem value="three-phases">3 Phases</SelectItem>
-										<SelectItem value="single-phase">1 Phase</SelectItem>
+									<SelectContent
+										onChange={handleInsulationChange}
+										value={selectedInsulation}
+										position="popper"
+									>
+										<SelectItem value="0">
+											PVC [<i>T</i>
+											<sub>max</sub>= 70&deg;C]
+										</SelectItem>
+										<SelectItem value="1">
+											XLPE or EPR [<i>T</i>
+											<sub>max</sub>= 90&deg;C]
+										</SelectItem>
 									</SelectContent>
 								</Select>
 							</div>
 							<div className="flex flex-col space-y-1.5">
 								<Label htmlFor="installation-method">Installation Method</Label>
 								<Select>
+									{/* value={selectedMethod} onChange={handleMethodChange} */}
 									<SelectTrigger id="framework">
 										<SelectValue placeholder="Select" />
 									</SelectTrigger>
-									<SelectContent position="popper">
+									<SelectContent
+										value={selectedMethod}
+										onChange={handleMethodChange}
+										position="popper"
+									>
 										<SelectItem value="A1">
 											[A1] Insulated conductors in conduit in a thermally
 											insulated wall.
@@ -141,7 +190,29 @@ export default function Calculator() {
 								</Select>
 							</div>
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="voltage">Voltage (V)</Label>
+								<Label htmlFor="temperature">
+									Ambient ground or air temperature (&deg;C)
+								</Label>
+								<Input
+									id="temperature"
+									placeholder="T"
+									value={selectedTemperature}
+									onChange={(event) =>
+										setSelectedTemperature(event.target.value)
+									}
+								/>
+							</div>
+
+							<Alert>
+								<Terminal className="h-4 w-4" />
+								<AlertTitle>Temperature Constant</AlertTitle>
+								<AlertDescription>
+									<i>K</i>
+									<sub>T</sub>= {calculateTempConst()}
+								</AlertDescription>
+							</Alert>
+							<div className="flex flex-col space-y-1.5">
+								<Label htmlFor="voltage">Line-to-Neutral Voltage (V)</Label>
 								<Input
 									id="voltage"
 									placeholder="V"
@@ -150,10 +221,10 @@ export default function Calculator() {
 								/>
 							</div>
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="rated-power">Rated power (VA)</Label>
+								<Label htmlFor="rated-power">Rated power (W)</Label>
 								<Input
 									id="rated-power"
-									placeholder="S"
+									placeholder="P"
 									value={apparentPower}
 									onChange={handleApparentPowerChange}
 								/>
@@ -162,12 +233,25 @@ export default function Calculator() {
 								<Label htmlFor="power-factor">Power factor</Label>
 								<Input
 									id="power-factor"
-									placeholder="pf"
+									placeholder="cos(θ)"
 									value={powerFactor}
 									onChange={handlePowerFactorChange}
 								/>
 							</div>
-							<Alert variant="">
+							<div className="flex flex-col space-y-1.5">
+								<Label htmlFor="power-factor">
+									Number of circuits or multi-core cables
+								</Label>
+								<Input
+									id="power-factor"
+									placeholder="Number of circuits or multi-core cables"
+								/>
+							</div>
+							<div className="flex flex-col space-y-1.5">
+								<Label htmlFor="power-factor">Length (m)</Label>
+								<Input id="length" placeholder="length" />
+							</div>
+							<Alert>
 								<Terminal className="h-4 w-4" />
 								<AlertTitle>Design Current</AlertTitle>
 								<AlertDescription>
@@ -184,8 +268,10 @@ export default function Calculator() {
 					</form>
 				</CardContent>
 				<CardFooter className="flex justify-between">
-					<Button variant="outline">Cancel</Button>
-					<Button>Calculate</Button>
+					<Button variant="outline" onClick={handleCancel}>
+						Cancel
+					</Button>
+					<Button onClick={calculateIb}>Calculate</Button>
 				</CardFooter>
 			</Card>
 		</div>
