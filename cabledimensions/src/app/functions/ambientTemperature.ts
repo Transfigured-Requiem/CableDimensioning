@@ -46,6 +46,7 @@ export function ambientTemperature(
 
 	// Determine which array to use based on the method
 	const validMethods = ["A1", "A2", "B1", "B2", "C", "E", "F", "G"]
+	const underGroundMethods = ["D1", "D2"]
 	let selectedArray
 
 	if (validMethods.includes(method)) {
@@ -55,15 +56,15 @@ export function ambientTemperature(
 		// Method is "D1" or "D2"
 		selectedArray = ambientGroundTemp
 	}
-
+	//if (underGroundMethods.includes()) {}
 	// Determine which column to access based on the insulation
-	const column = insulation === 0 ? 2 : 1
+	const column = insulation + 1
 
 	// Find the row in the selected array based on the provided temperature
 	const row = selectedArray.findIndex((entry) => entry[0] === temperature)
 
 	if (row === -1) {
-		return "Temperature not found in the array"
+		return "Not defined for chosen T"
 	}
 
 	// Access the value from the selected column and row
