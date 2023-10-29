@@ -1,7 +1,7 @@
 export function ambientTemperature(
 	method: string,
 	temperature: number,
-	insulation: number
+	insulation: string
 ) {
 	// col 0: temp | col 1: PVC | col 2: XLPE or EPR
 	const ambientAirTemp = [
@@ -45,21 +45,27 @@ export function ambientTemperature(
 	]
 
 	// Determine which array to use based on the method
-	const validMethods = ["A1", "A2", "B1", "B2", "C", "E", "F", "G"]
+	const aboveGroundMethods = ["A1", "A2", "B1", "B2", "C", "E", "F", "G"]
 	const underGroundMethods = ["D1", "D2"]
 	let selectedArray
 
-	if (validMethods.includes(method)) {
+	if (aboveGroundMethods.includes(method)) {
 		// Method is one of "A1", "A2", "B1", "B2", "C", "E", "F", or "G"
 		selectedArray = ambientAirTemp
-	} else {
+	} else if (underGroundMethods.includes(method)) {
 		// Method is "D1" or "D2"
 		selectedArray = ambientGroundTemp
 	}
 	//if (underGroundMethods.includes()) {}
 	// Determine which column to access based on the insulation
-	const column = insulation + 1
-
+	//const column = insulation === "pvc" : 1 ? 2
+	let col
+	if (insulation === "pvc") {
+		col = 1
+	} else {
+		col = 2
+	}
+	const column = col
 	// Find the row in the selected array based on the provided temperature
 	const row = selectedArray.findIndex((entry) => entry[0] === temperature)
 

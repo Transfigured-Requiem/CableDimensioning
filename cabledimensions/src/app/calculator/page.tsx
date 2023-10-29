@@ -1,4 +1,5 @@
 "use client"
+
 import {
 	Card,
 	CardContent,
@@ -22,34 +23,23 @@ import { baseCurrent, normalCurrent } from "../functions/calculator"
 import { ambientTemperature } from "../functions/ambientTemperature"
 import { groupingConstant } from "../functions/groupingConstant"
 import React, { useState } from "react"
-import { Terminal } from "lucide-react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "@/components/ui/hover-card"
+import { cn } from "@/lib/utils"
 
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table"
+import { InsulationMaterial } from "../functions/InsulationMaterial"
+import { InstallationMethod } from "../functions/InstallationMethod"
+import { ConductorMaterial } from "../functions/ConductorMaterial"
+import { CableArrangement } from "../functions/CableArrangement"
+import { NumberOfCircuits } from "../functions/NumberOfCircuits"
 
 export default function Calculator() {
 	// Initialize state variables for input values
 	const [apparentPower, setApparentPower] = useState("")
 	const [powerFactor, setPowerFactor] = useState("")
 	const [selectedVoltage, setSelectedVoltage] = useState("") // Default voltage
-	const [calculatedIb, setCalculatedIb] = useState(null) // State to store the calculated Ib
+	//const [calculatedIb, setCalculatedIb] = useState(null) // State to store the calculated Ib
 	const [selectedInsulation, setSelectedInsulation] = useState("") // 0: PVC | 1: XLPE or EPR
 	const [selectedTemperature, setSelectedTemperature] = useState("")
-	const [selectedMethod, setSelectedMethod] = useState("")
+
 	const [selectedArrangement, setSelectedArrangement] = useState("")
 	const [numberOfAdjCkt, setNumberOfAdjCkt] = useState("")
 
@@ -65,21 +55,6 @@ export default function Calculator() {
 	// Function to handle voltage selection
 	const handleVoltageChange = (event) => {
 		setSelectedVoltage(event.target.value)
-	}
-
-	const handleInsulationChange = (event) => {
-		setSelectedInsulation(event.target.value)
-	}
-
-	// Function to handle changes in installation method
-	const handleMethodChange = (event) => {
-		setSelectedMethod(event.target.value)
-	}
-	const handleArrangementChange = (event) => {
-		setSelectedArrangement(event.target.value)
-	}
-	const handleNumberOfCktChange = (event) => {
-		setNumberOfAdjCkt(event.target.value)
 	}
 
 	const S = parseFloat(apparentPower)
@@ -104,59 +79,45 @@ export default function Calculator() {
 			return "..."
 		}
 	}
-	const calculateTempConst = () => {
-		const method = selectedMethod
-		const temp = parseFloat(selectedTemperature) // Parse the input temperature as a float
-		const insulation = parseFloat(selectedInsulation)
+	// const calculateTempConst = () => {
+	// 	const method = selectedMethod
+	// 	const temp = parseFloat(selectedTemperature) // Parse the input temperature as a float
+	// 	const insulation = value
 
-		if (!isNaN(temp) && temp >= 10 && !isNaN(insulation)) {
-			return ambientTemperature(method, temp, insulation)
-		} else {
-			return ".!.."
-		}
-	}
+	// 	if (!isNaN(temp) && temp >= 10) {
+	// 		return ambientTemperature(method, temp, insulation)
+	// 	} else {
+	// 		return ".!.."
+	// 	}
+	// }
 
-	const calculateGroupConst = () => {
-		const arrangement = parseFloat(selectedArrangement)
-		const numberOfCkt = parseFloat(numberOfAdjCkt)
-		const validArrangments = [0, 1, 2, 3, 4]
-		const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 16, 20]
-		if (!validNumbers.includes(numberOfCkt)) {
-			return "Invalid Number of circuits"
-		} else if (!validArrangments.includes(arrangement)) {
-			return "Invalid Arrangment code"
-		} else {
-			return groupingConstant(arrangement, numberOfCkt)
-		}
-	}
+	// const calculateGroupConst = () => {
+	// 	const arrangement = parseFloat(selectedArrangement)
+	// 	const numberOfCkt = parseFloat(numberOfAdjCkt)
+	// 	const validArrangements = [0, 1, 2, 3, 4]
+	// 	const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 16, 20]
+	// 	if (!validNumbers.includes(numberOfCkt)) {
+	// 		return "Invalid Number of circuits"
+	// 	} else if (!validArrangements.includes(arrangement)) {
+	// 		return "Invalid Arrangment code"
+	// 	} else {
+	// 		return groupingConstant(arrangement, numberOfCkt)
+	// 	}
+	// }
 
-	const arrangements = [
-		{
-			arrangement: "[A-F] Bunched in air, on a surface, embedded or enclosed.",
-			code: "0",
-		},
-		{
-			arrangement: "[C] Single layer on wall, floor or unperforated tray.",
-			code: "1",
-		},
-		{
-			arrangement: "[C] Single layer fixed directly under a wooden ceiling.",
-			code: "2",
-		},
-		{
-			arrangement:
-				"[E and F] Single layer on a perforated horizontal or vertical tray.",
-			code: "3",
-		},
-		{
-			arrangement: "[E and F] Single layer on ladder support or cleats etc.",
-			code: "4",
-		},
-	]
+	// const arrangementsTable = [
+	// 	{
+	// 		arrangement: "[A-F] Bunched in air, on a surface, embedded or enclosed.",
+	// 		code: "0",
+	// 	},
+	// 	{
+	// 		arrangement: "[C] Single layer on wall, floor or unperforated tray.",
+	// 		code: "1",
+	// 	},
 
 	return (
 		<div className="m-8 flex justify-center justify-items-center justify-self-center">
-			<Card className="w-[350px]">
+			<Card className="w-[600px]">
 				<CardHeader>
 					<CardTitle>Set your cable parameters</CardTitle>
 					<CardDescription>
@@ -167,106 +128,13 @@ export default function Calculator() {
 				<CardContent>
 					<form>
 						<div className="grid w-full items-center gap-4">
-							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="conductor-material">Conductor material</Label>
-								<Select>
-									<SelectTrigger id="framework">
-										<SelectValue placeholder="Select" />
-									</SelectTrigger>
-									<SelectContent position="popper">
-										<SelectItem value="al">Aluminum</SelectItem>
-										<SelectItem value="cu">Copper</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
-							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="number-of-phases">Insulation material</Label>
-								<Select>
-									<SelectTrigger id="framework">
-										<SelectValue placeholder="Select" />
-									</SelectTrigger>
-									<SelectContent
-										onChange={(event) =>
-											setSelectedInsulation(event.target.value)
-										}
-										value={selectedInsulation}
-										position="popper"
-									>
-										<SelectItem value="0">
-											PVC [<i>T</i>
-											<sub>max</sub>= 70&deg;C]
-										</SelectItem>
-										<SelectItem value="1">
-											XLPE or EPR [<i>T</i>
-											<sub>max</sub>= 90&deg;C]
-										</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
-							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="installation-method">Installation Method</Label>
-								<Select>
-									{/* value={selectedMethod} onChange={handleMethodChange} */}
-									<SelectTrigger id="framework">
-										<SelectValue placeholder="Select" />
-									</SelectTrigger>
-									<SelectContent
-										value={selectedMethod}
-										onChange={handleMethodChange}
-										position="popper"
-									>
-										<SelectItem value="A1">
-											[A1] Insulated conductors in conduit in a thermally
-											insulated wall.
-										</SelectItem>
-										<SelectItem value="A2">
-											[A2] Multi-core cable in conduit in a thermally insulated
-											wall.
-										</SelectItem>
-										<SelectItem value="B1">
-											[B1] Insulated conductors in conduit on a wooden or
-											masonry wall.
-										</SelectItem>
-										<SelectItem value="B2">
-											[B2] Multi-core cable in conduit on a wooden or masonry
-											wall.
-										</SelectItem>
-										<SelectItem value="C">
-											[C] Single-core or multi-core cable on a wooden or masonry
-											wall.
-										</SelectItem>
-										<SelectItem value="D1">
-											[D1] Multi-core cable in ducts in the ground.
-										</SelectItem>
-										<SelectItem value="D2">
-											[D2] Multi-core cables designed to be buried directly in
-											the ground.
-										</SelectItem>
-										<SelectItem value="E">
-											[E] Multi-core cable in free air.
-										</SelectItem>
-										<SelectItem value="F">
-											[F] Single-core cables, touching in free air.
-										</SelectItem>
-										<SelectItem value="G">
-											[G] Single-core cables, spaced in free air.
-										</SelectItem>
-									</SelectContent>
-								</Select>
-							</div>
+							<ConductorMaterial />
+							<InsulationMaterial />
+							<InstallationMethod />
+							<CableArrangement />
+							<NumberOfCircuits />
 
-							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="numberCkt">Arrangement (cables touching)</Label>
-								<Input
-									id="arrangement"
-									placeholder="Arrangement (cables touching)"
-									value={selectedArrangement}
-									onChange={(event) =>
-										setSelectedArrangement(event.target.value)
-									}
-								/>
-							</div>
-							<div className="flex flex-col space-y-1.5">
+							{/* <div className="flex flex-col space-y-1.5">
 								<Label htmlFor="numberCkt">
 									Number of circuits or multi-core cables
 								</Label>
@@ -280,7 +148,7 @@ export default function Calculator() {
 							<Badge variant="default" className="">
 								<i>K</i>
 								<sub>G</sub>= {calculateGroupConst()}
-							</Badge>
+							</Badge> */}
 
 							<div className="flex flex-col space-y-1.5">
 								<Label htmlFor="temperature">
@@ -296,10 +164,10 @@ export default function Calculator() {
 								/>
 							</div>
 
-							<Badge variant="default" className="">
+							{/* <Badge variant="default" className="">
 								<i>K</i>
 								<sub>T</sub>= {calculateTempConst()}
-							</Badge>
+							</Badge> */}
 
 							<div className="flex flex-col space-y-1.5">
 								<Label htmlFor="voltage">Line-to-Neutral Voltage (V)</Label>
@@ -352,7 +220,7 @@ export default function Calculator() {
 						</CardFooter> */}
 			</Card>
 
-			<div className="ml-20 mr-20 text-md">
+			{/* <div className="ml-20 mr-20 text-md">
 				<Table>
 					<TableCaption>Arrangements Codes table</TableCaption>
 					<TableHeader>
@@ -362,7 +230,7 @@ export default function Calculator() {
 						</TableRow>
 					</TableHeader>
 					<TableBody>
-						{arrangements.map((arrangement) => (
+						{arrangementsTable.map((arrangement) => (
 							<TableRow key={arrangement.arrangement}>
 								<TableCell className="font-medium">
 									{arrangement.arrangement}
@@ -372,7 +240,7 @@ export default function Calculator() {
 						))}
 					</TableBody>
 				</Table>
-			</div>
+			</div> */}
 		</div>
 	)
 }
