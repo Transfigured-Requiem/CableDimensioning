@@ -13,6 +13,7 @@ export function groupingConstant(
 	const column = numberOfCircuits
 
 	const row = arrangement
+
 	const selectedValue = groupingConstants[row][column]
 
 	return selectedValue

@@ -70,7 +70,7 @@ export function ambientTemperature(
 	const row = selectedArray.findIndex((entry) => entry[0] === temperature)
 
 	if (row === -1) {
-		return "Not defined for chosen T"
+		return "..."
 	}
 
 	// Access the value from the selected column and row

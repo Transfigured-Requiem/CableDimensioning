@@ -16,9 +16,10 @@ import { Button } from "@/components/ui/button"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { Label } from "@/components/ui/label"
 
-export function InstallationMethod() {
+const InstallationMethod = () => {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
+	var theMethod = value
 
 	const installationMethods = [
 		{
@@ -120,3 +121,5 @@ export function InstallationMethod() {
 		</div>
 	)
 }
+
+export { InstallationMethod, theMethod }

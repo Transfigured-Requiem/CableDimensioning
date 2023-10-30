@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import {
 	Command,
 	CommandEmpty,
@@ -18,62 +18,66 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 
+import { MethodOfInstall } from "../calculator/page"
+
 import { ambientTemperature } from "./ambientTemperature"
 
 export function ThermalConstant() {
+	const method = useContext(MethodOfInstall)
+
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
 
-	const [isDropdownOpen, setDropdownOpen] = useState(false)
-	const [selectedValue, setSelectedValue] = useState("")
+	// const [isDropdownOpen, setDropdownOpen] = useState(false)
+	// const [selectedValue, setSelectedValue] = useState("")
 
 	const [selectedTemperature, setSelectedTemperature] = useState("")
 
-	const installationMethods = [
-		{
-			value: "0",
-			label:
-				"[A1] Insulated conductors in conduit in a thermally insulated wall.",
-		},
-		{
-			value: "1",
-			label: "[A2] Multi-core cable in conduit in a thermally insulated wall.",
-		},
-		{
-			value: "2",
-			label:
-				"[B1] Insulated conductors in conduit on a wooden or masonry wall.",
-		},
-		{
-			value: "3",
-			label: "[B2] Multi-core cable in conduit on a wooden or masonry wall.",
-		},
-		{
-			value: "4",
-			label: "[C] Single-core or multi-core cable on a wooden or masonry wall.",
-		},
-		{
-			value: "5",
-			label: "[D1] Multi-core cable in ducts in the ground.",
-		},
-		{
-			value: "6",
-			label:
-				"[D2] Multi-core cables designed to be buried directly in the ground.",
-		},
-		{
-			value: "7",
-			label: "[E] Multi-core cable in free air.",
-		},
-		{
-			value: "8",
-			label: "[F] Single-core cables, touching in free air.",
-		},
-		{
-			value: "9",
-			label: "[G] Single-core cables, spaced in free air.",
-		},
-	]
+	// const installationMethods = [
+	// 	{
+	// 		value: "0",
+	// 		label:
+	// 			"[A1] Insulated conductors in conduit in a thermally insulated wall.",
+	// 	},
+	// 	{
+	// 		value: "1",
+	// 		label: "[A2] Multi-core cable in conduit in a thermally insulated wall.",
+	// 	},
+	// 	{
+	// 		value: "2",
+	// 		label:
+	// 			"[B1] Insulated conductors in conduit on a wooden or masonry wall.",
+	// 	},
+	// 	{
+	// 		value: "3",
+	// 		label: "[B2] Multi-core cable in conduit on a wooden or masonry wall.",
+	// 	},
+	// 	{
+	// 		value: "4",
+	// 		label: "[C] Single-core or multi-core cable on a wooden or masonry wall.",
+	// 	},
+	// 	{
+	// 		value: "5",
+	// 		label: "[D1] Multi-core cable in ducts in the ground.",
+	// 	},
+	// 	{
+	// 		value: "6",
+	// 		label:
+	// 			"[D2] Multi-core cables designed to be buried directly in the ground.",
+	// 	},
+	// 	{
+	// 		value: "7",
+	// 		label: "[E] Multi-core cable in free air.",
+	// 	},
+	// 	{
+	// 		value: "8",
+	// 		label: "[F] Single-core cables, touching in free air.",
+	// 	},
+	// 	{
+	// 		value: "9",
+	// 		label: "[G] Single-core cables, spaced in free air.",
+	// 	},
+	// ]
 	const insulationMaterials = [
 		{
 			value: "pvc",
@@ -137,7 +141,7 @@ export function ThermalConstant() {
 					</PopoverContent>
 				</Popover>
 			</div>
-			<div className="flex flex-col space-y-1.5">
+			{/* <div className="flex flex-col space-y-1.5">
 				<Label htmlFor="conductor-material">Installation method</Label>
 				<Popover open={isDropdownOpen} onOpenChange={setDropdownOpen}>
 					<PopoverTrigger asChild>
@@ -191,7 +195,7 @@ export function ThermalConstant() {
 						</Command>
 					</PopoverContent>
 				</Popover>
-			</div>
+			</div> */}
 			<div className="flex flex-col space-y-1.5">
 				<Label htmlFor="temperature">
 					Ambient ground or air temperature (&deg;C)
@@ -207,11 +211,7 @@ export function ThermalConstant() {
 				<Badge variant="default" className="w-[50%]">
 					<i>K</i>
 					<sub>T</sub>=
-					{ambientTemperature(
-						selectedValue,
-						parseFloat(selectedTemperature),
-						value
-					)}
+					{ambientTemperature(method, parseFloat(selectedTemperature), value)}
 				</Badge>
 			</div>
 		</div>
