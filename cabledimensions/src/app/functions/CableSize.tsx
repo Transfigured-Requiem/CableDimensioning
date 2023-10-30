@@ -15,41 +15,23 @@ import {
 import { Button } from "@/components/ui/button"
 import { Check, ChevronsUpDown } from "lucide-react"
 import { Label } from "@/components/ui/label"
+import { Badge } from "@/components/ui/badge"
+
 import { MethodOfInstall } from "../calculator/page"
+import { phaseOptions } from "./constants"
+import { cableMaterials } from "./constants"
+import { TypeOfInsulation } from "../calculator/page"
+
+import { chooseColumn } from "./chooseColumn"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
+	const insulation = useContext(TypeOfInsulation)
 
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
 
 	const [isPopoverOpen, setPopoverOpen] = useState(false)
 	const [selectedPhase, setSelectedPhase] = useState("") // Default value set to "1"
-
-	const phaseOptions = [
-		{
-			value: "1",
-			label: "1 Phase",
-		},
-		{
-			value: "2",
-			label: "2 Phases",
-		},
-		{
-			value: "3",
-			label: "3 Phases",
-		},
-	]
-
-	const cableMaterials = [
-		{
-			value: "1",
-			label: "Copper",
-		},
-		{
-			value: "2",
-			label: "Aluminium",
-		},
-	]
 
 	return (
 		<div className="flex flex-col space-y-1.5">
@@ -156,6 +138,35 @@ export function CableSize() {
 						</Command>
 					</PopoverContent>
 				</Popover>
+			</div>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>I</i>
+					<sub>t</sub>={"waiting"}
+				</Badge>
+				<p>
+					<span className="text-blue-500 font-bold">Installation method</span> ={" "}
+					{method}
+				</p>
+				<p>
+					<span className="text-blue-500 font-bold">Conductor</span> = {value}
+				</p>
+				<p>
+					<span className="text-blue-500 font-bold">Phase</span> ={" "}
+					{selectedPhase}
+				</p>
+				<p>
+					<span className="text-blue-500 font-bold">Insulation</span> ={" "}
+					{insulation}
+				</p>
+				<p>
+					<span className="text-green-500 font-bold">Here boy</span> =
+					{chooseColumn(
+						insulation,
+						parseFloat(selectedPhase),
+						parseFloat(method)
+					)}
+				</p>
 			</div>
 		</div>
 	)

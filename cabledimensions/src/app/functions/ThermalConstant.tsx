@@ -22,11 +22,11 @@ import { MethodOfInstall } from "../calculator/page"
 
 import { ambientTemperature } from "./ambientTemperature"
 
+import { TypeOfInsulation } from "../calculator/page"
+import { insulationMaterials } from "./constants"
 export function ThermalConstant() {
 	const method = useContext(MethodOfInstall)
-
-	const [open, setOpen] = useState(false)
-	const [value, setValue] = useState("")
+	const insulation = useContext(TypeOfInsulation)
 
 	// const [isDropdownOpen, setDropdownOpen] = useState(false)
 	// const [selectedValue, setSelectedValue] = useState("")
@@ -78,69 +78,9 @@ export function ThermalConstant() {
 	// 		label: "[G] Single-core cables, spaced in free air.",
 	// 	},
 	// ]
-	const insulationMaterials = [
-		{
-			value: "pvc",
-			label: "PVC",
-		},
-		{
-			value: "xlpe",
-			label: "XLPE or EPR",
-		},
-	]
+
 	return (
 		<div className="flex flex-col space-y-1.5">
-			<div className="flex flex-col space-y-1.5">
-				<Label htmlFor="conductor-material">Insulation material</Label>
-				<Popover open={open} onOpenChange={setOpen}>
-					<PopoverTrigger asChild>
-						<Button
-							variant="outline"
-							role="combobox"
-							aria-expanded={open}
-							className="w-auto justify-between"
-						>
-							{value
-								? insulationMaterials.find(
-										(framework) => framework.value === value
-								  )?.label
-								: "Select insulation material..."}
-
-							<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent className="w-auto p-0">
-						<Command>
-							<CommandInput placeholder="Search insulation material..." />
-							<CommandEmpty>
-								<span className="text-red-500 font-bold">
-									Insulation material not found.
-								</span>
-							</CommandEmpty>
-							<CommandGroup>
-								{insulationMaterials.map((framework) => (
-									<CommandItem
-										key={framework.value}
-										value={framework.value}
-										onSelect={(currentValue) => {
-											setValue(currentValue === value ? "" : currentValue)
-											setOpen(false)
-										}}
-									>
-										<Check
-											className={cn(
-												"mr-2 h-4 w-4",
-												value === framework.value ? "opacity-100" : "opacity-0"
-											)}
-										/>
-										{framework.label}
-									</CommandItem>
-								))}
-							</CommandGroup>
-						</Command>
-					</PopoverContent>
-				</Popover>
-			</div>
 			{/* <div className="flex flex-col space-y-1.5">
 				<Label htmlFor="conductor-material">Installation method</Label>
 				<Popover open={isDropdownOpen} onOpenChange={setDropdownOpen}>
@@ -211,7 +151,11 @@ export function ThermalConstant() {
 				<Badge variant="default" className="w-[50%]">
 					<i>K</i>
 					<sub>T</sub>=
-					{ambientTemperature(method, parseFloat(selectedTemperature), value)}
+					{ambientTemperature(
+						method,
+						parseFloat(selectedTemperature),
+						insulation
+					)}
 				</Badge>
 			</div>
 		</div>

@@ -31,55 +31,16 @@ import { Check, ChevronsUpDown } from "lucide-react"
 import { Label } from "@/components/ui/label"
 
 export const MethodOfInstall = React.createContext()
+export const TypeOfInsulation = React.createContext()
+export const MaterialOfConductor = React.createContext()
+
+import { installationMethods } from "../functions/constants"
+import { insulationMaterials } from "../functions/constants"
 export default function Calculator() {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
-
-	const installationMethods = [
-		{
-			value: "0",
-			label:
-				"[A1] Insulated conductors in conduit in a thermally insulated wall.",
-		},
-		{
-			value: "1",
-			label: "[A2] Multi-core cable in conduit in a thermally insulated wall.",
-		},
-		{
-			value: "2",
-			label:
-				"[B1] Insulated conductors in conduit on a wooden or masonry wall.",
-		},
-		{
-			value: "3",
-			label: "[B2] Multi-core cable in conduit on a wooden or masonry wall.",
-		},
-		{
-			value: "4",
-			label: "[C] Single-core or multi-core cable on a wooden or masonry wall.",
-		},
-		{
-			value: "5",
-			label: "[D1] Multi-core cable in ducts in the ground.",
-		},
-		{
-			value: "6",
-			label:
-				"[D2] Multi-core cables designed to be buried directly in the ground.",
-		},
-		{
-			value: "7",
-			label: "[E] Multi-core cable in free air.",
-		},
-		{
-			value: "8",
-			label: "[F] Single-core cables, touching in free air.",
-		},
-		{
-			value: "9",
-			label: "[G] Single-core cables, spaced in free air.",
-		},
-	]
+	const [open2, setOpen2] = useState(false)
+	const [value2, setValue2] = useState("")
 
 	return (
 		<div className="m-8 flex justify-center justify-items-center justify-self-center">
@@ -95,95 +56,157 @@ export default function Calculator() {
 					<form>
 						<div className="grid w-full items-center gap-4">
 							<MethodOfInstall.Provider value={value}>
-								<Tabs defaultValue="base-current" className="w-auto ">
-									<TabsList className="grid w-full grid-cols-4">
-										<TabsTrigger value="base-current">Base Current</TabsTrigger>
-										<TabsTrigger value="grouping-constant">
-											Grouping Constant
-										</TabsTrigger>
-										<TabsTrigger value="thermal-insulation-constant">
-											Thermal Insulation Constant
-										</TabsTrigger>
-										<TabsTrigger value="cable-parameters">
-											Cable Parameters
-										</TabsTrigger>
-									</TabsList>
-									<TabsContent value="base-current">
-										<BaseCurrent />
-									</TabsContent>
-									<TabsContent value="grouping-constant">
-										<CableArrangement />
-									</TabsContent>
-									<TabsContent value="thermal-insulation-constant">
-										<div className="flex flex-col space-y-1.5">
-											<Label htmlFor="conductor-material">
-												Installation method
-											</Label>
-											<Popover open={open} onOpenChange={setOpen}>
-												<PopoverTrigger asChild>
-													<Button
-														variant="outline"
-														role="combobox"
-														aria-expanded={open}
-														className="w-full justify-between"
-													>
-														{value
-															? installationMethods.find(
-																	(framework) => framework.value === value
-															  )?.label
-															: "Select installation method..."}
+								<TypeOfInsulation.Provider value={value2}>
+									<MaterialOfConductor.Provider value={""}>
+										<Tabs defaultValue="base-current" className="w-auto ">
+											<TabsList className="grid w-full grid-cols-4">
+												<TabsTrigger value="base-current">
+													Base Current
+												</TabsTrigger>
+												<TabsTrigger value="grouping-constant">
+													Grouping Constant
+												</TabsTrigger>
+												<TabsTrigger value="thermal-insulation-constant">
+													Thermal Insulation Constant
+												</TabsTrigger>
+												<TabsTrigger value="cable-parameters">
+													Cable Parameters
+												</TabsTrigger>
+											</TabsList>
+											<TabsContent value="base-current">
+												<BaseCurrent />
+											</TabsContent>
+											<TabsContent value="grouping-constant">
+												<CableArrangement />
+											</TabsContent>
+											<TabsContent value="thermal-insulation-constant">
+												<div className="flex flex-col space-y-1.5">
+													<Label htmlFor="conductor-material">
+														Insulation material
+													</Label>
+													<Popover open={open2} onOpenChange={setOpen2}>
+														<PopoverTrigger asChild>
+															<Button
+																variant="outline"
+																role="combobox"
+																aria-expanded={open2}
+																className="w-auto justify-between"
+															>
+																{value2
+																	? insulationMaterials.find(
+																			(framework) => framework.value === value2
+																	  )?.label
+																	: "Select insulation material..."}
 
-														<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-													</Button>
-												</PopoverTrigger>
-												<PopoverContent className="w-auto p-0">
-													<Command>
-														<CommandInput placeholder="Search installation method..." />
-														<CommandEmpty>
-															<span className="text-red-500 font-bold">
-																Installation method not found.
-															</span>
-														</CommandEmpty>
-														<CommandGroup>
-															{installationMethods.map((framework) => (
-																<CommandItem
-																	key={framework.value}
-																	value={framework.value}
-																	onSelect={(currentValue) => {
-																		setValue(
-																			currentValue === value ? "" : currentValue
-																		)
-																		setOpen(false)
-																	}}
-																>
-																	<Check
-																		className={cn(
-																			"mr-2 h-4 w-4",
-																			value === framework.value
-																				? "opacity-100"
-																				: "opacity-0"
-																		)}
-																	/>
-																	{framework.label}
-																</CommandItem>
-															))}
-														</CommandGroup>
-													</Command>
-												</PopoverContent>
-											</Popover>
-										</div>
-										<ThermalConstant />
-									</TabsContent>
-									<TabsContent value="cable-parameters">
-										<CableSize />
-										<p>
-											<span className="text-blue-500 font-bold">
-												Installation method
-											</span>{" "}
-											= {value}
-										</p>
-									</TabsContent>
-								</Tabs>
+																<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+															</Button>
+														</PopoverTrigger>
+														<PopoverContent className="w-auto p-0">
+															<Command>
+																<CommandInput placeholder="Search insulation material..." />
+																<CommandEmpty>
+																	<span className="text-red-500 font-bold">
+																		Insulation material not found.
+																	</span>
+																</CommandEmpty>
+																<CommandGroup>
+																	{insulationMaterials.map((framework) => (
+																		<CommandItem
+																			key={framework.value}
+																			value={framework.value}
+																			onSelect={(currentValue) => {
+																				setValue2(
+																					currentValue === value2
+																						? ""
+																						: currentValue
+																				)
+																				setOpen2(false)
+																			}}
+																		>
+																			<Check
+																				className={cn(
+																					"mr-2 h-4 w-4",
+																					value2 === framework.value
+																						? "opacity-100"
+																						: "opacity-0"
+																				)}
+																			/>
+																			{framework.label}
+																		</CommandItem>
+																	))}
+																</CommandGroup>
+															</Command>
+														</PopoverContent>
+													</Popover>
+												</div>
+
+												<div className="flex flex-col space-y-1.5">
+													<Label htmlFor="conductor-material">
+														Installation method
+													</Label>
+													<Popover open={open} onOpenChange={setOpen}>
+														<PopoverTrigger asChild>
+															<Button
+																variant="outline"
+																role="combobox"
+																aria-expanded={open}
+																className="w-full justify-between"
+															>
+																{value
+																	? installationMethods.find(
+																			(framework) => framework.value === value
+																	  )?.label
+																	: "Select installation method..."}
+
+																<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+															</Button>
+														</PopoverTrigger>
+														<PopoverContent className="w-auto p-0">
+															<Command>
+																<CommandInput placeholder="Search installation method..." />
+																<CommandEmpty>
+																	<span className="text-red-500 font-bold">
+																		Installation method not found.
+																	</span>
+																</CommandEmpty>
+																<CommandGroup>
+																	{installationMethods.map((framework) => (
+																		<CommandItem
+																			key={framework.value}
+																			value={framework.value}
+																			onSelect={(currentValue) => {
+																				setValue(
+																					currentValue === value
+																						? ""
+																						: currentValue
+																				)
+																				setOpen(false)
+																			}}
+																		>
+																			<Check
+																				className={cn(
+																					"mr-2 h-4 w-4",
+																					value === framework.value
+																						? "opacity-100"
+																						: "opacity-0"
+																				)}
+																			/>
+																			{framework.label}
+																		</CommandItem>
+																	))}
+																</CommandGroup>
+															</Command>
+														</PopoverContent>
+													</Popover>
+												</div>
+												<ThermalConstant />
+											</TabsContent>
+											<TabsContent value="cable-parameters">
+												<CableSize />
+											</TabsContent>
+										</Tabs>
+									</MaterialOfConductor.Provider>
+								</TypeOfInsulation.Provider>
 							</MethodOfInstall.Provider>
 						</div>
 					</form>
