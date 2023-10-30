@@ -32,6 +32,7 @@ import { CableArrangement } from "../functions/CableArrangement"
 import { NumberOfCircuits } from "../functions/NumberOfCircuits"
 import { BaseCurrent } from "../functions/BaseCurrent"
 import { CableSize } from "../functions/CableSize"
+import { ThermalConstant } from "../functions/ThermalConstant"
 
 export default function Calculator() {
 	// Initialize state variables for input values
@@ -119,7 +120,7 @@ export default function Calculator() {
 
 	return (
 		<div className="m-8 flex justify-center justify-items-center justify-self-center">
-			<Card className="w-[800px]">
+			<Card className="w-[920px]  sm:h-4/5">
 				<CardHeader>
 					<CardTitle>Set your cable parameters</CardTitle>
 					<CardDescription>
@@ -127,7 +128,7 @@ export default function Calculator() {
 						standard.
 					</CardDescription>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="">
 					<form>
 						<div className="grid w-full items-center gap-4">
 							<Tabs defaultValue="base-current" className="w-auto ">
@@ -150,7 +151,7 @@ export default function Calculator() {
 									<CableArrangement />
 								</TabsContent>
 								<TabsContent value="thermal-insulation-constant">
-									<InsulationMaterial />
+									{/* <InsulationMaterial />
 									<InstallationMethod />
 									<div className="flex flex-col space-y-1.5">
 										<Label htmlFor="temperature">
@@ -164,7 +165,8 @@ export default function Calculator() {
 												setSelectedTemperature(event.target.value)
 											}
 										/>
-									</div>
+									</div> */}
+									<ThermalConstant />
 								</TabsContent>
 								<TabsContent value="cable-parameters"></TabsContent>
 							</Tabs>

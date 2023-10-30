@@ -45,9 +45,9 @@ export function ambientTemperature(
 	]
 
 	// Determine which array to use based on the method
-	const aboveGroundMethods = ["A1", "A2", "B1", "B2", "C", "E", "F", "G"]
-	const underGroundMethods = ["D1", "D2"]
-	let selectedArray
+	const aboveGroundMethods = ["0", "1", "2", "3", "4", "7", "8", "9"]
+	const underGroundMethods = ["5", "6"]
+	let selectedArray = []
 
 	if (aboveGroundMethods.includes(method)) {
 		// Method is one of "A1", "A2", "B1", "B2", "C", "E", "F", or "G"
