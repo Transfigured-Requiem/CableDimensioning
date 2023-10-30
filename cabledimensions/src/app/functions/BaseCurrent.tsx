@@ -1,6 +1,5 @@
 import { Label } from "@/components/ui/label"
 import React, { useState } from "react"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 
@@ -31,7 +30,8 @@ export function BaseCurrent() {
 		// Convert input values to numbers and check for validity
 
 		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
-			return baseCurrent(S, V, pf)
+			let Ib = S / (pf * V)
+			return Ib
 		} else {
 			return "..."
 		}
@@ -39,7 +39,7 @@ export function BaseCurrent() {
 
 	const calculateIn = () => {
 		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
-			let Ib = baseCurrent(S, V, pf)
+			let Ib = S / (pf * V)
 			return Math.round(Ib)
 		} else {
 			return "..."
@@ -47,7 +47,7 @@ export function BaseCurrent() {
 	}
 
 	return (
-		<div className="">
+		<div className="flex flex-col space-y-1.5">
 			<div className="flex flex-col space-y-1.5">
 				<Label htmlFor="voltage">Line-to-Neutral Voltage (V)</Label>
 				<Input
@@ -75,14 +75,18 @@ export function BaseCurrent() {
 					onChange={handlePowerFactorChange}
 				/>
 			</div>
-			<Badge variant="default">
-				<i>I</i>
-				<sub> b</sub>= {}
-			</Badge>
-			<Badge variant="default" className="">
-				<i>I</i>
-				<sub> n</sub>= {calculateIn()}
-			</Badge>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>I</i>
+					<sub> b</sub>= {calculateIb()}
+				</Badge>
+			</div>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>I</i>
+					<sub> n</sub>= {calculateIn()}
+				</Badge>
+			</div>
 		</div>
 	)
 }

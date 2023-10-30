@@ -15,5 +15,5 @@ export function groupingConstant(
 	const row = arrangement
 	const selectedValue = groupingConstants[row][column]
 
-	return [selectedValue, "--", row, "--", column]
+	return selectedValue
 }

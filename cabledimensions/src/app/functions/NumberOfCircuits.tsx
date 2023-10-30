@@ -3,8 +3,8 @@ import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import React, { useState } from "react"
 
-import { groupingConstant } from "./groupingConstant"
-import { CableArrangement } from "./CableArrangement"
+import { groupingConstant } from "./groupingConstanCalc"
+import { CableArrangement } from "./groupingConstanCalc"
 import {arr} from "./group"
 export function NumberOfCircuits() {
 	const [numberOfCircuits, setNumberOfCircuits] = useState("1")

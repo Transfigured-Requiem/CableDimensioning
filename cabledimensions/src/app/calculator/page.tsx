@@ -21,64 +21,66 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { baseCurrent, normalCurrent } from "../functions/calculator"
 import { ambientTemperature } from "../functions/ambientTemperature"
-import { groupingConstant } from "../functions/groupingConstant"
+import { groupingConstant } from "../functions/groupingConstanCalc"
 import React, { useState } from "react"
 import { cn } from "@/lib/utils"
-
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { InsulationMaterial } from "../functions/InsulationMaterial"
 import { InstallationMethod } from "../functions/InstallationMethod"
 import { ConductorMaterial } from "../functions/ConductorMaterial"
 import { CableArrangement } from "../functions/CableArrangement"
 import { NumberOfCircuits } from "../functions/NumberOfCircuits"
+import { BaseCurrent } from "../functions/BaseCurrent"
+import { CableSize } from "../functions/CableSize"
 
 export default function Calculator() {
 	// Initialize state variables for input values
-	const [apparentPower, setApparentPower] = useState("")
-	const [powerFactor, setPowerFactor] = useState("")
-	const [selectedVoltage, setSelectedVoltage] = useState("") // Default voltage
+	// const [apparentPower, setApparentPower] = useState("")
+	// const [powerFactor, setPowerFactor] = useState("")
+	// const [selectedVoltage, setSelectedVoltage] = useState("") // Default voltage
 	//const [calculatedIb, setCalculatedIb] = useState(null) // State to store the calculated Ib
-	const [selectedInsulation, setSelectedInsulation] = useState("") // 0: PVC | 1: XLPE or EPR
+	// const [selectedInsulation, setSelectedInsulation] = useState("") // 0: PVC | 1: XLPE or EPR
 	const [selectedTemperature, setSelectedTemperature] = useState("")
 
-	const [selectedArrangement, setSelectedArrangement] = useState("")
-	const [numberOfAdjCkt, setNumberOfAdjCkt] = useState("")
+	// const [selectedArrangement, setSelectedArrangement] = useState("")
+	// const [numberOfAdjCkt, setNumberOfAdjCkt] = useState("")
 
 	// Function to handle input changes
-	const handleApparentPowerChange = (event) => {
-		setApparentPower(event.target.value)
-	}
+	// const handleApparentPowerChange = (event) => {
+	// 	setApparentPower(event.target.value)
+	// }
 
-	const handlePowerFactorChange = (event) => {
-		setPowerFactor(event.target.value)
-	}
+	// const handlePowerFactorChange = (event) => {
+	// 	setPowerFactor(event.target.value)
+	// }
 
-	// Function to handle voltage selection
-	const handleVoltageChange = (event) => {
-		setSelectedVoltage(event.target.value)
-	}
+	// // Function to handle voltage selection
+	// const handleVoltageChange = (event) => {
+	// 	setSelectedVoltage(event.target.value)
+	// }
 
-	const S = parseFloat(apparentPower)
-	const pf = parseFloat(powerFactor)
-	const V = parseFloat(selectedVoltage)
-	// Calculate Ib
-	const calculateIb = () => {
-		// Convert input values to numbers and check for validity
+	// const S = parseFloat(apparentPower)
+	// const pf = parseFloat(powerFactor)
+	// const V = parseFloat(selectedVoltage)
+	// // Calculate Ib
+	// const calculateIb = () => {
+	// 	// Convert input values to numbers and check for validity
 
-		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
-			return baseCurrent(S, V, pf)
-		} else {
-			return "..."
-		}
-	}
+	// 	if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
+	// 		return baseCurrent(S, V, pf)
+	// 	} else {
+	// 		return "..."
+	// 	}
+	// }
 
-	const calculateIn = () => {
-		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
-			let Ib = baseCurrent(S, V, pf)
-			return Math.round(Ib)
-		} else {
-			return "..."
-		}
-	}
+	// const calculateIn = () => {
+	// 	if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
+	// 		let Ib = baseCurrent(S, V, pf)
+	// 		return Math.round(Ib)
+	// 	} else {
+	// 		return "..."
+	// 	}
+	// }
 	// const calculateTempConst = () => {
 	// 	const method = selectedMethod
 	// 	const temp = parseFloat(selectedTemperature) // Parse the input temperature as a float
@@ -117,7 +119,7 @@ export default function Calculator() {
 
 	return (
 		<div className="m-8 flex justify-center justify-items-center justify-self-center">
-			<Card className="w-[600px]">
+			<Card className="w-[800px]">
 				<CardHeader>
 					<CardTitle>Set your cable parameters</CardTitle>
 					<CardDescription>
@@ -128,11 +130,49 @@ export default function Calculator() {
 				<CardContent>
 					<form>
 						<div className="grid w-full items-center gap-4">
-							<ConductorMaterial />
-							<InsulationMaterial />
-							<InstallationMethod />
-							<CableArrangement />
-							<NumberOfCircuits />
+							<Tabs defaultValue="base-current" className="w-auto ">
+								<TabsList className="grid w-full grid-cols-4">
+									<TabsTrigger value="base-current">Base Current</TabsTrigger>
+									<TabsTrigger value="grouping-constant">
+										Grouping Constant
+									</TabsTrigger>
+									<TabsTrigger value="thermal-insulation-constant">
+										Thermal Insulation Constant
+									</TabsTrigger>
+									<TabsTrigger value="cable-parameters">
+										Cable Parameters
+									</TabsTrigger>
+								</TabsList>
+								<TabsContent value="base-current">
+									<BaseCurrent />
+								</TabsContent>
+								<TabsContent value="grouping-constant">
+									<CableArrangement />
+								</TabsContent>
+								<TabsContent value="thermal-insulation-constant">
+									<InsulationMaterial />
+									<InstallationMethod />
+									<div className="flex flex-col space-y-1.5">
+										<Label htmlFor="temperature">
+											Ambient ground or air temperature (&deg;C)
+										</Label>
+										<Input
+											id="temperature"
+											placeholder="T"
+											value={selectedTemperature}
+											onChange={(event) =>
+												setSelectedTemperature(event.target.value)
+											}
+										/>
+									</div>
+								</TabsContent>
+								<TabsContent value="cable-parameters"></TabsContent>
+							</Tabs>
+							{/* <BaseCurrent /> */}
+							{/* <ConductorMaterial /> */}
+
+							{/* <CableArrangement /> */}
+							{/* <NumberOfCircuits /> */}
 
 							{/* <div className="flex flex-col space-y-1.5">
 								<Label htmlFor="numberCkt">
@@ -150,26 +190,12 @@ export default function Calculator() {
 								<sub>G</sub>= {calculateGroupConst()}
 							</Badge> */}
 
-							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="temperature">
-									Ambient ground or air temperature (&deg;C)
-								</Label>
-								<Input
-									id="temperature"
-									placeholder="T"
-									value={selectedTemperature}
-									onChange={(event) =>
-										setSelectedTemperature(event.target.value)
-									}
-								/>
-							</div>
-
 							{/* <Badge variant="default" className="">
 								<i>K</i>
 								<sub>T</sub>= {calculateTempConst()}
 							</Badge> */}
 
-							<div className="flex flex-col space-y-1.5">
+							{/* <div className="flex flex-col space-y-1.5">
 								<Label htmlFor="voltage">Line-to-Neutral Voltage (V)</Label>
 								<Input
 									id="voltage"
@@ -208,10 +234,11 @@ export default function Calculator() {
 							<Badge variant="default" className="">
 								<i>I</i>
 								<sub> n</sub>= {calculateIn()}
-							</Badge>
+							</Badge> */}
 						</div>
 					</form>
 				</CardContent>
+
 				{/* <CardFooter className="flex justify-between">
 							<Button variant="outline" onClick={handleCancel}>
 								Cancel

@@ -19,13 +19,13 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 
 //import { arr } from "./group"
-import { groupingConstant } from "./groupingConstant"
+import { groupingConstant } from "./groupingConstanCalc"
 export function CableArrangement() {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState(0)
 
 	const [open1, setOpen1] = useState(false)
-	const [value1, setValue1] = useState(1)
+	const [value1, setValue1] = useState()
 	const cableArrangements = [
 		{
 			value: "0",
@@ -51,18 +51,18 @@ export function CableArrangement() {
 	]
 
 	const validNumbers = [
-		{ value: "0", label: "1" },
-		{ value: "1", label: "2" },
-		{ value: "2", label: "3" },
-		{ value: "3", label: "4" },
-		{ value: "4", label: "5" },
-		{ value: "5", label: "6" },
-		{ value: "6", label: "7" },
-		{ value: "7", label: "8" },
-		{ value: "8", label: "9" },
-		{ value: "9", label: "12" },
-		{ value: "10", label: "16" },
-		{ value: "11", label: "20" },
+		{ value: "0", label: "1 circuit or multi-core cable" },
+		{ value: "1", label: "2 circuits or multi-core cables" },
+		{ value: "2", label: "3 circuits or multi-core cables" },
+		{ value: "3", label: "4 circuits or multi-core cables" },
+		{ value: "4", label: "5 circuits or multi-core cables" },
+		{ value: "5", label: "6 circuits or multi-core cables" },
+		{ value: "6", label: "7 circuits or multi-core cables" },
+		{ value: "7", label: "8 circuits or multi-core cables" },
+		{ value: "8", label: "9 circuits or multi-core cables" },
+		{ value: "9", label: "12 circuits or multi-core cables" },
+		{ value: "10", label: "16 circuits or multi-core cables" },
+		{ value: "11", label: "20 circuits or multi-core cables" },
 	]
 	// const [numberOfCircuits, setNumberOfCircuits] = useState("1")
 	// //const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 16, 20]
@@ -129,7 +129,9 @@ export function CableArrangement() {
 				</PopoverContent>
 			</Popover>
 			<p className="text-blue-500">{(arr[0] = parseFloat(value))}</p>
-			<Label htmlFor="conductor-material1">Cable Arrangement</Label>
+			<Label htmlFor="conductor-material1">
+				Number of circuits or multi-core cables
+			</Label>
 			<Popover open={open1} onOpenChange={setOpen1}>
 				<PopoverTrigger asChild>
 					<Button
@@ -140,16 +142,16 @@ export function CableArrangement() {
 					>
 						{value1
 							? validNumbers.find((number) => number.value === value1)?.label
-							: "Select cable arrangement..."}
+							: "Select number of circuits or multi-core cables..."}
 						<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 					</Button>
 				</PopoverTrigger>
 				<PopoverContent className="w-auto p-0">
 					<Command>
-						<CommandInput placeholder="Search cable arrangement..." />
+						<CommandInput placeholder="Search number of circuits or multi-core cables..." />
 						<CommandEmpty>
 							<span className="text-red-500 font-bold">
-								Cable arrangement not found.
+								Number of circuits or multi-core cables not found.
 							</span>
 						</CommandEmpty>
 						<CommandGroup>
@@ -196,10 +198,12 @@ export function CableArrangement() {
                 {groupingConstant(arr[0],arr[1])}
                 {/* {tempIndex} */}
 			{/* </Badge> */}
-			<Badge variant="default" className="">
-				<i>K</i>
-				<sub>G</sub>= {groupingConstant(arr[0], arr[1])}
-			</Badge>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>K</i>
+					<sub>G</sub>={groupingConstant(arr[0], arr[1])}
+				</Badge>
+			</div>
 		</div>
 	)
 }
