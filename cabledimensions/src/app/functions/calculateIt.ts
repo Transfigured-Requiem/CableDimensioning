@@ -13,9 +13,10 @@ const In = parseFloat(storedCurrent)
 const KG = parseFloat(storedKG)
 const KT = parseFloat(storedKT)
 const KR = parseFloat(storedKR)
+const currentIt = In / (KG * KT * KR)
+localStorage.setItem("currentItdb", JSON.stringify(currentIt))
+//}
 
-export const currentIt = In / (KG * KT * KR)
-// localStorage.setItem("currentIt", JSON.stringify(currentIt))
 //}
 //const storedIt = JSON.parse(localStorage.getItem("Kt"))
 //export { currentIt }

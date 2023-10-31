@@ -71,11 +71,11 @@ const phaseOptions = [
 
 const cableMaterials = [
 	{
-		value: "1",
+		value: "cu",
 		label: "Copper",
 	},
 	{
-		value: "2",
+		value: "al",
 		label: "Aluminium",
 	},
 ]

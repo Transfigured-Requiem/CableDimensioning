@@ -11,9 +11,13 @@ function ClearVals() {
 	}
 
 	return (
-		<div>
+		<div className="grid justify-items-end">
 			{/* Your component content */}
-			<Button variant="outline" onClick={handleDeleteButtonClick}>
+			<Button
+				variant="secondary"
+				className="text-md font-semibold"
+				onClick={handleDeleteButtonClick}
+			>
 				Reset all values
 			</Button>
 		</div>

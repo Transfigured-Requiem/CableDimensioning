@@ -22,10 +22,12 @@ import { phaseOptions } from "./constants"
 import { cableMaterials } from "./constants"
 import { TypeOfInsulation } from "../calculator/page"
 import ClearVals from "./clearValuesLocally"
-import { chooseColumn } from "./chooseColumn"
+import { chooseColumn, aluminumSize } from "./chooseColumn"
 import { copperSize } from "../functions/choose"
+//import { copperSize, aluminumSize } from "./chooseColumn"
 import { currentIt } from "./calculateIt"
 import { copperArray } from "./copperTable"
+import { conductorSize } from "../functions/choose"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
@@ -33,8 +35,10 @@ export function CableSize() {
 	const storedKG = JSON.parse(localStorage.getItem("KG"))
 	const storedKT = JSON.parse(localStorage.getItem("KT"))
 	const storedKR = JSON.parse(localStorage.getItem("KR"))
-	//const currentIt = JSON.parse(localStorage.getItem("currentIt"))
+	const currentIt2 = JSON.parse(localStorage.getItem("currentItdb"))
 
+	const theCurrentIt = storedCurrent / (storedKG * storedKR * storedKT)
+	localStorage.setItem("theCurrent", JSON.stringify(theCurrentIt))
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
 
@@ -180,7 +184,7 @@ export function CableSize() {
 					<span className="text-zinc-500 font-bold">KR</span> ={storedKR}
 				</p>
 				<p>
-					<span className="text-purple-500 font-bold">It</span> ={currentIt}
+					<span className="text-purple-500 font-bold">It</span> ={theCurrentIt}
 				</p>
 				<p>
 					<span className="text-green-500 font-bold">Column</span> =
@@ -192,7 +196,8 @@ export function CableSize() {
 				</p>
 				<p>
 					<span className="text-yellow-500 font-bold">Current Column</span> =
-					{copperSize(
+					{conductorSize(
+						value,
 						insulation,
 						parseFloat(selectedPhase),
 						parseFloat(method)

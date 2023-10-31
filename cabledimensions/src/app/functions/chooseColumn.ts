@@ -67,4 +67,14 @@ function aluminumSize(i: string, n: number, m: number) {
 
 	return aluminumArray
 }
+
+// function coondar(c: string, i: string, n: number, m: number) {
+// 	// This variable stores the result of the chooseColumn function
+// 	//const col = chooseColumn(i, n, m)
+// 	if (c === "1") {
+// 		return copperSize(i, n, m)
+// 	} else {
+// 		return aluminumSize(i, n, m)
+// 	}
+// }
 export { chooseColumn, copperSize, aluminumSize }
