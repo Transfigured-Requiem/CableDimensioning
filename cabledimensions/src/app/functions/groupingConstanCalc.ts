@@ -16,9 +16,16 @@ export function groupingConstant(
 
 	const selectedValue = groupingConstants[row][column]
 
-	if (selectedValue === null) {
-		const temp = 1
-		localStorage.setItem("KG", JSON.stringify(temp))
+	// if (!isNaN(selectedValue)) {
+	// 	const temp = "1"
+	// 	localStorage.setItem("KG", JSON.stringify(temp))
+	// } else {
+	// 	localStorage.setItem("KG", JSON.stringify(selectedValue))
+	// }
+	localStorage.setItem("KG", JSON.stringify(1))
+
+	if (!parseFloat(selectedValue)) {
+		localStorage.setItem("KG", JSON.stringify(selectedValue)) // Store it as a string
 	} else {
 		localStorage.setItem("KG", JSON.stringify(selectedValue))
 	}

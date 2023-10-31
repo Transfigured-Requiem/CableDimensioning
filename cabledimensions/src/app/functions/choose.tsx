@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react"
 export const FirstColumn = React.createContext()
 import { copperTableJSON } from "./copperTable"
-//import { currentIt } from "./calculateIt"
+import { currentIt } from "./calculateIt"
+import { Badge } from "@/components/ui/badge"
 
 function chooseColumn(
 	insulationType: string,
@@ -45,7 +46,7 @@ function chooseColumn(
 }
 
 function copperSize(i: string, n: number, m: number) {
-	const currentIt = JSON.parse(localStorage.getItem("currentIt"))
+	//const currentIt = JSON.parse(localStorage.getItem("currentIt"))
 	// This variable stores the result of the chooseColumn function
 	const col = chooseColumn(i, n, m)
 
@@ -56,7 +57,15 @@ function copperSize(i: string, n: number, m: number) {
 
 	// Find the first value greater than currentIt
 	const firstGreaterValue = copperArray.find((value) => value > currentIt)
+	//const firstGreaterValue = copperArray.find((value) => value > currentIt);
 
+	let output
+
+	if (firstGreaterValue === undefined) {
+		output = "Not specified"
+	} else {
+		output = firstGreaterValue
+	}
 	let conductorSize = null
 	if (firstGreaterValue !== undefined) {
 		const index = copperArray.indexOf(firstGreaterValue)
@@ -68,7 +77,15 @@ function copperSize(i: string, n: number, m: number) {
 	return (
 		<div>
 			<p>Stored Value (Kt): {currentIt}</p>
+			<p>First Value Greater Than Kt: {output}</p>
+			<p>Size of conductor:</p>
 			<p>First Value Greater Than Kt: {firstGreaterValue}</p>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>I</i>
+					<sub>z</sub>={output}
+				</Badge>
+			</div>
 			<p>Size of conductor: {conductorSize} mm²</p>
 		</div>
 	)

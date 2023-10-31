@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 export const FirstColumn = React.createContext()
 import { copperTableJSON } from "./copperTable"
+import { aluminumTableJSON } from "./aluminumTable"
 
 function chooseColumn(
 	insulationType: string,
@@ -55,4 +56,15 @@ function copperSize(i: string, n: number, m: number) {
 	return copperArray
 }
 
-export { chooseColumn, copperSize }
+function aluminumSize(i: string, n: number, m: number) {
+	// This variable stores the result of the chooseColumn function
+	const col = chooseColumn(i, n, m)
+
+	// Map the copperTableJSON to create an array of arrays containing values from the specified column
+	const aluminumArray = aluminumTableJSON.map((obj) => {
+		return [obj[`col__${col}`]]
+	})
+
+	return aluminumArray
+}
+export { chooseColumn, copperSize, aluminumSize }
