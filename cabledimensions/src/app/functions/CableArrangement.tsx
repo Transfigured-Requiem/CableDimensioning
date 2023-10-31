@@ -26,6 +26,7 @@ export function CableArrangement() {
 
 	const [open1, setOpen1] = useState(false)
 	const [value1, setValue1] = useState()
+
 	const cableArrangements = [
 		{
 			value: "0",
@@ -77,7 +78,8 @@ export function CableArrangement() {
 	// 	}
 	// }
 	let arr = []
-
+	arr[0] = parseFloat(value)
+	arr[1] = parseFloat(value1)
 	return (
 		<div className="flex flex-col space-y-1.5">
 			<Label htmlFor="conductor-material">Cable Arrangement</Label>
@@ -128,7 +130,7 @@ export function CableArrangement() {
 					</Command>
 				</PopoverContent>
 			</Popover>
-			<p className="text-blue-500">{(arr[0] = parseFloat(value))}</p>
+
 			<Label htmlFor="conductor-material1">
 				Number of circuits or multi-core cables
 			</Label>
@@ -178,8 +180,6 @@ export function CableArrangement() {
 				</PopoverContent>
 			</Popover>
 
-			<p className="text-blue-500">{(arr[1] = parseFloat(value1))}</p>
-
 			{/* <div className="flex flex-col space-y-1.5">
 				<Label htmlFor="numberCkt">
 					Number of circuits or multi-core cables
@@ -199,10 +199,16 @@ export function CableArrangement() {
                 {/* {tempIndex} */}
 			{/* </Badge> */}
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>K</i>
-					<sub>G</sub>={groupingConstant(arr[0], arr[1])}
+					<sub>G</sub>
+					<span className="w-2"></span>=<span className="w-2"></span>
+					{groupingConstant(arr[0], arr[1])}
 				</Badge>
+				{localStorage.setItem(
+					"KG",
+					JSON.stringify(groupingConstant(arr[0], arr[1]))
+				)}
 			</div>
 		</div>
 	)

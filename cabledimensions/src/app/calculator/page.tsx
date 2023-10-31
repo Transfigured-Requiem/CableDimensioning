@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
 import {
 	Card,
 	CardContent,
@@ -7,13 +8,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { BaseCurrent } from "../functions/BaseCurrent"
-import { CableArrangement } from "../functions/CableArrangement"
-import { ThermalConstant } from "../functions/ThermalConstant"
-import { CableSize } from "../functions/CableSize"
-import { cn } from "@/lib/utils"
-import React, { useContext, useState } from "react"
 import {
 	Command,
 	CommandEmpty,
@@ -21,21 +15,31 @@ import {
 	CommandInput,
 	CommandItem,
 } from "@/components/ui/command"
+import { Label } from "@/components/ui/label"
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { cn } from "@/lib/utils"
 import { Check, ChevronsUpDown } from "lucide-react"
-import { Label } from "@/components/ui/label"
+import React, { useState } from "react"
+import { BaseCurrent } from "../functions/BaseCurrent"
+import { CableArrangement } from "../functions/CableArrangement"
+import { CableSize } from "../functions/CableSize"
+import { ThermalConstant } from "../functions/ThermalConstant"
+import { Terminal } from "lucide-react"
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 export const MethodOfInstall = React.createContext()
 export const TypeOfInsulation = React.createContext()
 export const MaterialOfConductor = React.createContext()
 
-import { installationMethods } from "../functions/constants"
-import { insulationMaterials } from "../functions/constants"
+import {
+	installationMethods,
+	insulationMaterials,
+} from "../functions/constants"
 //import { copperSize } from "../functions/chooseColumn"
 
 export default function Calculator() {
@@ -82,7 +86,7 @@ export default function Calculator() {
 												<CableArrangement />
 											</TabsContent>
 											<TabsContent value="thermal-insulation-constant">
-												<div className="flex flex-col space-y-1.5">
+												<div className="flex flex-col space-y-1.5 mt-3">
 													<Label htmlFor="conductor-material">
 														Insulation material
 													</Label>
@@ -142,7 +146,7 @@ export default function Calculator() {
 													</Popover>
 												</div>
 
-												<div className="flex flex-col space-y-1.5">
+												<div className="flex flex-col space-y-1.5 mt-3">
 													<Label htmlFor="conductor-material">
 														Installation method
 													</Label>

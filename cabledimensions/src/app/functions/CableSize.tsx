@@ -28,15 +28,21 @@ import { copperSize } from "../functions/choose"
 import { currentIt } from "./calculateIt"
 import { copperArray } from "./copperTable"
 import { conductorSize } from "../functions/choose"
+import { Terminal } from "lucide-react"
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
 	const storedCurrent = JSON.parse(localStorage.getItem("currentIn"))
 	const storedKG = JSON.parse(localStorage.getItem("KG"))
+
 	const storedKT = JSON.parse(localStorage.getItem("KT"))
 	const storedKR = JSON.parse(localStorage.getItem("KR"))
 	const currentIt2 = JSON.parse(localStorage.getItem("currentItdb"))
-
+	// !isNaN(storedKG)
+	// 	? (storedKG = 1)
+	// 	: (storedKG = JSON.parse(localStorage.getItem("KG")))
 	const theCurrentIt = storedCurrent / (storedKG * storedKR * storedKT)
 	localStorage.setItem("theCurrent", JSON.stringify(theCurrentIt))
 	const [open, setOpen] = useState(false)
@@ -152,11 +158,12 @@ export function CableSize() {
 				</Popover>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>I</i>
-					<sub>t</sub>={"waiting"}
+					<sub>t</sub>={theCurrentIt} <span className="w-5"></span>
+					<i> [A]</i>
 				</Badge>
-				<p>
+				{/* <p>
 					<span className="text-blue-500 font-bold">Installation method</span> ={" "}
 					{method}
 				</p>
@@ -185,17 +192,17 @@ export function CableSize() {
 				</p>
 				<p>
 					<span className="text-purple-500 font-bold">It</span> ={theCurrentIt}
-				</p>
+				</p> */}
 				<p>
-					<span className="text-green-500 font-bold">Column</span> =
-					{chooseColumn(
+					{/* <span className="text-green-500 font-bold">Column</span> = */}
+					{/* {chooseColumn(
 						insulation,
 						parseFloat(selectedPhase),
 						parseFloat(method)
-					)}
+					)} */}
 				</p>
 				<p>
-					<span className="text-yellow-500 font-bold">Current Column</span> =
+					{/* <span className="text-yellow-500 font-bold">Current Column</span> = */}
 					{conductorSize(
 						value,
 						insulation,

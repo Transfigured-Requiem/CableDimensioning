@@ -22,10 +22,10 @@ export function groupingConstant(
 	// } else {
 	// 	localStorage.setItem("KG", JSON.stringify(selectedValue))
 	// }
-	localStorage.setItem("KG", JSON.stringify(1))
+	//localStorage.setItem("KG", JSON.stringify(1))
 
-	if (!parseFloat(selectedValue)) {
-		localStorage.setItem("KG", JSON.stringify(selectedValue)) // Store it as a string
+	if (!isNaN(selectedValue)) {
+		localStorage.setItem("KG", JSON.stringify("1")) // Store it as a string
 	} else {
 		localStorage.setItem("KG", JSON.stringify(selectedValue))
 	}

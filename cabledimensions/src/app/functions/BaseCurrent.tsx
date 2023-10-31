@@ -79,15 +79,19 @@ export function BaseCurrent() {
 				/>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>I</i>
 					<sub> b</sub>= {calculateIb()}
+					<span className="w-5"></span>
+					<i> [A]</i>
 				</Badge>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>I</i>
 					<sub> n</sub>= {calculateIn()}
+					<span className="w-5"></span>
+					<i> [A]</i>
 				</Badge>
 			</div>
 		</div>

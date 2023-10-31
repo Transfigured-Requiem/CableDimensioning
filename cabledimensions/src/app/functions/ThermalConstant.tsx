@@ -86,7 +86,7 @@ export function ThermalConstant() {
 	// ]
 
 	return (
-		<div className="flex flex-col space-y-1.5">
+		<div className="flex flex-col space-y-1.5 mt-3">
 			{/* <div className="flex flex-col space-y-1.5">
 				<Label htmlFor="conductor-material">Installation method</Label>
 				<Popover open={isDropdownOpen} onOpenChange={setDropdownOpen}>
@@ -206,18 +206,19 @@ export function ThermalConstant() {
 					</PopoverContent>
 				</Popover>
 			</div>
-			<p>
+			{/* <p>
 				<span className="text-yellow-500 font-bold">Here boy</span> ={method}
 			</p>
 			<p>
 				<span className="text-yellow-500 font-bold">Here boy</span> =
 				{thermalResistivityValue}
-			</p>
+			</p> */}
 			<div className="flex flex-col space-y-1.5"></div>
 			<div className="">
 				<Badge variant="default" className="w-[50%]">
 					<i>K</i>
-					<sub>R</sub>=
+					<sub>R</sub>
+					<span className="w-2"></span>=<span className="w-2"></span>
 					{thermalRes(parseFloat(method), parseFloat(thermalResistivityValue))}
 				</Badge>
 			</div>
@@ -235,7 +236,8 @@ export function ThermalConstant() {
 			<div className="">
 				<Badge variant="default" className="w-[50%]">
 					<i>K</i>
-					<sub>T</sub>=
+					<sub>T</sub>
+					<span className="w-2"></span>=<span className="w-2"></span>
 					{ambientTemperature(
 						method,
 						parseFloat(selectedTemperature),

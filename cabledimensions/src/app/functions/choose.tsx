@@ -73,28 +73,32 @@ function copperSize(i: string, n: number, m: number) {
 		if (index !== -1) {
 			conductorSize = copperTableJSON[index].col
 		}
+	} else {
+		conductorSize = "Not Specified"
 	}
 
 	return (
 		<div className="flex flex-col space-y-1.5">
-			<p>
+			{/* <p>
 				Stored Value (It): {currentIt} <i> [A]</i>
 			</p>
 			<p>
 				First Value Greater Than It: {output} <i> [A]</i>
-			</p>
+			</p> */}
 			{/* <p>Size of conductor:</p> */}
 			{/* <p>First Value Greater Than Kt: {firstGreaterValue}</p> */}
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>I</i>
 					<sub>z</sub>={output}
+					<span className="w-5"></span>
 					<i> [A]</i>
 				</Badge>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>Size of Cu conductor</i>={conductorSize}
+					<span className="w-5"></span>
 					<i> [mm²]</i>
 				</Badge>
 			</div>
@@ -129,28 +133,32 @@ function aluminumSize(i: string, n: number, m: number) {
 		if (index !== -1) {
 			conductorSize = aluminumTableJSON[index].col
 		}
+	} else {
+		conductorSize = "Not Specified"
 	}
 
 	return (
 		<div className="flex flex-col space-y-1.5">
-			<p>
+			{/* <p>
 				Stored Value (It): {currentIt} <i> [A]</i>
 			</p>
 			<p>
 				First Value Greater Than It: {output} <i> [A]</i>
-			</p>
+			</p> */}
 			{/* <p>Size of conductor:</p> */}
 			{/* <p>First Value Greater Than Kt: {firstGreaterValue}</p> */}
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>I</i>
 					<sub>z</sub>={output}
+					<span className="w-5"></span>
 					<i> [A]</i>
 				</Badge>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[50%]">
+				<Badge variant="default" className="w-[40%]">
 					<i>Size of Al conductor</i>={conductorSize}
+					<span className="w-5"></span>
 					<i> [mm²]</i>
 				</Badge>
 			</div>
