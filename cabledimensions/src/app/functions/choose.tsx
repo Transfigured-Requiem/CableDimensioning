@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 export const FirstColumn = React.createContext()
 import { copperTableJSON } from "./copperTable"
+//import { currentIt } from "./calculateIt"
 
 function chooseColumn(
 	insulationType: string,
@@ -44,15 +45,33 @@ function chooseColumn(
 }
 
 function copperSize(i: string, n: number, m: number) {
+	const currentIt = JSON.parse(localStorage.getItem("currentIt"))
 	// This variable stores the result of the chooseColumn function
 	const col = chooseColumn(i, n, m)
 
 	// Map the copperTableJSON to create an array of arrays containing values from the specified column
 	const copperArray = copperTableJSON.map((obj) => {
-		return [obj[`col__${col}`]]
+		return parseFloat(obj[`col__${col}`]) // Parse the value as a number
 	})
 
-	return copperArray
+	// Find the first value greater than currentIt
+	const firstGreaterValue = copperArray.find((value) => value > currentIt)
+
+	let conductorSize = null
+	if (firstGreaterValue !== undefined) {
+		const index = copperArray.indexOf(firstGreaterValue)
+		if (index !== -1) {
+			conductorSize = copperTableJSON[index].col
+		}
+	}
+
+	return (
+		<div>
+			<p>Stored Value (Kt): {currentIt}</p>
+			<p>First Value Greater Than Kt: {firstGreaterValue}</p>
+			<p>Size of conductor: {conductorSize} mm²</p>
+		</div>
+	)
 }
 
 export { chooseColumn, copperSize }

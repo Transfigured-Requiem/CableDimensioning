@@ -23,9 +23,17 @@ import { cableMaterials } from "./constants"
 import { TypeOfInsulation } from "../calculator/page"
 
 import { chooseColumn } from "./chooseColumn"
+import { copperSize } from "../functions/choose"
+//import { currentIt } from "./calculateIt"
+import { copperArray } from "./copperTable"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
+	const storedCurrent = JSON.parse(localStorage.getItem("currentIn"))
+	const storedKG = JSON.parse(localStorage.getItem("KG"))
+	const storedKT = JSON.parse(localStorage.getItem("KT"))
+	const storedKR = JSON.parse(localStorage.getItem("KR"))
+	const currentIt = JSON.parse(localStorage.getItem("currentIt"))
 
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")
@@ -160,8 +168,31 @@ export function CableSize() {
 					{insulation}
 				</p>
 				<p>
+					<span className="text-red-500 font-bold">In</span> ={storedCurrent}
+				</p>
+				<p>
+					<span className="text-zinc-500 font-bold">KG</span> ={storedKG}
+				</p>
+				<p>
+					<span className="text-zinc-500 font-bold">KT</span> ={storedKT}
+				</p>
+				<p>
+					<span className="text-zinc-500 font-bold">KR</span> ={storedKR}
+				</p>
+				<p>
+					<span className="text-purple-500 font-bold">It</span> ={currentIt}
+				</p>
+				<p>
 					<span className="text-green-500 font-bold">Here boy</span> =
 					{chooseColumn(
+						insulation,
+						parseFloat(selectedPhase),
+						parseFloat(method)
+					)}
+				</p>
+				<p>
+					<span className="text-yellow-500 font-bold">Current Column</span> =
+					{copperSize(
 						insulation,
 						parseFloat(selectedPhase),
 						parseFloat(method)

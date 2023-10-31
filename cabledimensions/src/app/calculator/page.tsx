@@ -36,6 +36,8 @@ export const MaterialOfConductor = React.createContext()
 
 import { installationMethods } from "../functions/constants"
 import { insulationMaterials } from "../functions/constants"
+//import { copperSize } from "../functions/chooseColumn"
+
 export default function Calculator() {
 	const [open, setOpen] = useState(false)
 	const [value, setValue] = useState("")

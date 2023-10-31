@@ -24,6 +24,9 @@ import { ambientTemperature } from "./ambientTemperature"
 
 import { TypeOfInsulation } from "../calculator/page"
 import { insulationMaterials } from "./constants"
+import { thermalResistivity } from "./constants"
+
+import { thermalRes } from "./thermalRes"
 export function ThermalConstant() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
@@ -32,6 +35,9 @@ export function ThermalConstant() {
 	// const [selectedValue, setSelectedValue] = useState("")
 
 	const [selectedTemperature, setSelectedTemperature] = useState("")
+
+	const [thermalResistivityOpen, setThermalResistivityOpen] = useState(false)
+	const [thermalResistivityValue, setThermalResistivityValue] = useState("")
 
 	// const installationMethods = [
 	// 	{
@@ -136,6 +142,85 @@ export function ThermalConstant() {
 					</PopoverContent>
 				</Popover>
 			</div> */}
+			<div className="flex flex-col space-y-1.5">
+				<Label htmlFor="thermal-resistivity">
+					Thermal Resistivity{" "}
+					<span className="text-grey-500 opacity-30">
+						[set for methods D1 and D2 otherwise it&apos;s unity]
+					</span>
+				</Label>
+				<Popover
+					open={thermalResistivityOpen}
+					onOpenChange={setThermalResistivityOpen}
+				>
+					<PopoverTrigger asChild>
+						<Button
+							variant="outline"
+							role="combobox"
+							aria-expanded={thermalResistivityOpen}
+							className="w-auto justify-between"
+						>
+							{thermalResistivityValue
+								? thermalResistivity.find(
+										(material) => material.value === thermalResistivityValue
+								  )?.label
+								: "Select thermal resistivity ..."}
+							<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent className="w-auto p-0">
+						<Command>
+							<CommandInput placeholder="Search thermal resistivity ..." />
+							<CommandEmpty>
+								<span className="text-red-500 font-bold">
+									Thermal resistivity not found.
+								</span>
+							</CommandEmpty>
+							<CommandGroup>
+								{thermalResistivity.map((material) => (
+									<CommandItem
+										key={material.value}
+										value={material.value}
+										onSelect={(currentValue) => {
+											setThermalResistivityValue(
+												currentValue === thermalResistivityValue
+													? ""
+													: currentValue
+											)
+											setThermalResistivityOpen(false)
+										}}
+									>
+										<Check
+											className={cn(
+												"mr-2 h-4 w-4",
+												thermalResistivityValue === material.value
+													? "opacity-100"
+													: "opacity-0"
+											)}
+										/>
+										{material.label}
+									</CommandItem>
+								))}
+							</CommandGroup>
+						</Command>
+					</PopoverContent>
+				</Popover>
+			</div>
+			<p>
+				<span className="text-yellow-500 font-bold">Here boy</span> ={method}
+			</p>
+			<p>
+				<span className="text-yellow-500 font-bold">Here boy</span> =
+				{thermalResistivityValue}
+			</p>
+			<div className="flex flex-col space-y-1.5"></div>
+			<div className="">
+				<Badge variant="default" className="w-[50%]">
+					<i>K</i>
+					<sub>R</sub>=
+					{thermalRes(parseFloat(method), parseFloat(thermalResistivityValue))}
+				</Badge>
+			</div>
 			<div className="flex flex-col space-y-1.5">
 				<Label htmlFor="temperature">
 					Ambient ground or air temperature (&deg;C)

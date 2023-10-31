@@ -80,9 +80,33 @@ const cableMaterials = [
 	},
 ]
 
+const thermalResistivity = [
+	{
+		value: "0",
+		label: "1 [K·m/W]",
+	},
+	{
+		value: "1",
+		label: "1.5 [K·m/W]",
+	},
+	{
+		value: "2",
+		label: "2 [K·m/W]",
+	},
+	{
+		value: "3",
+		label: "2.5 [K·m/W]",
+	},
+	{
+		value: "4",
+		label: "3 [K·m/W]",
+	},
+]
+
 export {
 	insulationMaterials,
 	installationMethods,
 	phaseOptions,
 	cableMaterials,
+	thermalResistivity,
 }

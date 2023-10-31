@@ -31,6 +31,7 @@ export function BaseCurrent() {
 
 		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
 			let Ib = S / (pf * V)
+
 			return Ib
 		} else {
 			return "..."
@@ -40,7 +41,9 @@ export function BaseCurrent() {
 	const calculateIn = () => {
 		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
 			let Ib = S / (pf * V)
-			return Math.round(Ib)
+			const In = Math.round(Ib)
+			localStorage.setItem("currentIn", JSON.stringify(In))
+			return In
 		} else {
 			return "..."
 		}

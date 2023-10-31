@@ -16,5 +16,12 @@ export function groupingConstant(
 
 	const selectedValue = groupingConstants[row][column]
 
+	if (selectedValue === null) {
+		const temp = 1
+		localStorage.setItem("KG", JSON.stringify(temp))
+	} else {
+		localStorage.setItem("KG", JSON.stringify(selectedValue))
+	}
+
 	return selectedValue
 }

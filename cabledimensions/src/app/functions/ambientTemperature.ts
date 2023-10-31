@@ -75,6 +75,6 @@ export function ambientTemperature(
 
 	// Access the value from the selected column and row
 	const selectedValue = selectedArray[row][column]
-
+	localStorage.setItem("KT", JSON.stringify(selectedValue))
 	return selectedValue
 }
