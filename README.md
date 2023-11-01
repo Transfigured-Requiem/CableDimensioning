@@ -3,7 +3,9 @@
 
 This is a Cable Dimesioning Calculator built from scratch by me `Abderrahmane Taha Khenchouche` as a solution to the `Industrial Power Network` homework.
 
-### Installation
+You can visit and use it from [here.](https://cablesizer.netlify.app)
+
+### Local Installation
 First clone this github repository on your system
 ```
 git clone https://github.com/Transfigured-Requiem/CableDimensioning.git
