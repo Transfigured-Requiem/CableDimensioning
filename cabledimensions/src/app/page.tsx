@@ -35,22 +35,22 @@ export default function Home() {
 					href="/calculator"
 					target="_blank"
 				>
-					<b>Get started</b> <ArrowRight className="ml-2 h-5 w-5" />
+					<b>Go to calculator</b> <ArrowRight className="ml-2 h-5 w-5" />
 				</Link>
 				<p className="mt-20 text-xl text-zinc-500">
 					IEC 60364, known as Electrical Installations for Buildings, is an
 					international standard established by the International
 					Electrotechnical Commission (IEC). This standard aims to unify and
 					standardize the electrical installation requirements for buildings. It
-					is also published within the European Union under the name "HD 60364"
-					by CENELEC. Many European countries, including the UK (BS 7671), have
-					adopted versions of this standard. While they closely follow IEC
-					60364's structure, they may include additional provisions to
-					accommodate historical practices and simplify the use and compliance
-					checking by electricians and inspectors. National electrical codes and
-					site guides are created to align with the principles of IEC 60364 and
-					offer specific rules for individuals involved in installing and
-					inspecting electrical systems.
+					is also published within the European Union under the name `&quot`HD
+					60364`&quot` by CENELEC. Many European countries, including the UK (BS
+					7671), have adopted versions of this standard. While they closely
+					follow IEC 60364`&apos`s structure, they may include additional
+					provisions to accommodate historical practices and simplify the use
+					and compliance checking by electricians and inspectors. National
+					electrical codes and site guides are created to align with the
+					principles of IEC 60364 and offer specific rules for individuals
+					involved in installing and inspecting electrical systems.
 				</p>
 			</MaxWidthWrapper>
 
