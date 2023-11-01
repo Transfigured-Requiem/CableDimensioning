@@ -5,11 +5,11 @@ import React, { useState } from "react"
 
 import { groupingConstant } from "./groupingConstanCalc"
 import { CableArrangement } from "./groupingConstanCalc"
-import {arr} from "./group"
+import { arr } from "./group"
 export function NumberOfCircuits() {
 	const [numberOfCircuits, setNumberOfCircuits] = useState("1")
 	const validNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 16, 20]
-    const colIndex = validNumbers.indexOf(parseFloat(numberOfCircuits))
+	const colIndex = validNumbers.indexOf(parseFloat(numberOfCircuits))
 	const errorHandling = () => {
 		if (numberOfCircuits === "") {
 			return "..."
@@ -42,7 +42,6 @@ export function NumberOfCircuits() {
 	// }
 	return (
 		<div className="grid w-full items-center gap-4">
-            
 			<div className="flex flex-col space-y-1.5">
 				<Label htmlFor="numberCkt">
 					Number of circuits or multi-core cables
@@ -56,9 +55,9 @@ export function NumberOfCircuits() {
 			</div>
 			<Badge variant="default" className="">
 				<i>K</i>
-				<sub>G</sub> = "this is just number of ckts now" -> {errorHandling()} """"""""   
-                {groupingConstant(2, colIndex)}
-                {/* {tempIndex} */}
+				<sub>G</sub> = &quot;this is just number of ckts now&quot;{" "}
+				{errorHandling()} {groupingConstant(2, colIndex)}
+				{/* {tempIndex} */}
 			</Badge>
 		</div>
 	)

@@ -1,5 +1,5 @@
-const Arrangements () => {
-    const arrangementsTable = [
+const Arrangements = () => {
+	const arrangementsTable = [
 		{
 			arrangement: "[A-F] Bunched in air, on a surface, embedded or enclosed.",
 			code: "0",
