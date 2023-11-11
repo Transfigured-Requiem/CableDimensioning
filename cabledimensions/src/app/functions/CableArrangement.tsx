@@ -80,6 +80,22 @@ export function CableArrangement() {
 	let arr = []
 	arr[0] = parseFloat(value)
 	arr[1] = parseFloat(value1)
+
+	// Find the selected arrangement label
+	const selectedArrangementLabel =
+		cableArrangements.find((framework) => framework.value === value)?.label ||
+		""
+
+	// Find the selected number of circuits label
+	const selectedNumberCktLabel =
+		validNumbers.find((number) => number.value === value1)?.label || ""
+
+	// Store the selected arrangement label in local storage
+	localStorage.setItem("arrangement", JSON.stringify(selectedArrangementLabel))
+
+	// Store the selected number of circuits label in local storage
+	localStorage.setItem("numberCkt", JSON.stringify(selectedNumberCktLabel))
+
 	return (
 		<div className="flex flex-col space-y-1.5">
 			<Label htmlFor="conductor-material">Cable Arrangement</Label>

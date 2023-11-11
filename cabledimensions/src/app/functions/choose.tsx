@@ -67,6 +67,8 @@ function copperSize(i: string, n: number, m: number) {
 	} else {
 		output = firstGreaterValue
 	}
+	localStorage.setItem("Iz", JSON.stringify(output))
+
 	let conductorSize = null
 	if (firstGreaterValue !== undefined) {
 		const index = copperArray.indexOf(firstGreaterValue)
@@ -76,6 +78,7 @@ function copperSize(i: string, n: number, m: number) {
 	} else {
 		conductorSize = "Not Specified"
 	}
+	localStorage.setItem("Size", JSON.stringify(conductorSize))
 
 	return (
 		<div className="flex flex-col space-y-1.5">
@@ -127,6 +130,7 @@ function aluminumSize(i: string, n: number, m: number) {
 	} else {
 		output = firstGreaterValue
 	}
+	localStorage.setItem("Iz", JSON.stringify(output))
 	let conductorSize = null
 	if (firstGreaterValue !== undefined) {
 		const index = aluminumArray.indexOf(firstGreaterValue)
@@ -136,6 +140,7 @@ function aluminumSize(i: string, n: number, m: number) {
 	} else {
 		conductorSize = "Not Specified"
 	}
+	localStorage.setItem("Size", JSON.stringify(conductorSize))
 
 	return (
 		<div className="flex flex-col space-y-1.5">

@@ -40,6 +40,7 @@ import {
 	installationMethods,
 	insulationMaterials,
 } from "../functions/constants"
+import PdfGenerator from "../functions/PDFGenerator"
 //import { copperSize } from "../functions/chooseColumn"
 
 export default function Calculator() {

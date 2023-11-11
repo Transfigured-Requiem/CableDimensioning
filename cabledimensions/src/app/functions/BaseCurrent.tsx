@@ -43,6 +43,11 @@ export function BaseCurrent() {
 			let Ib = S / (pf * V)
 			const In = Math.round(Ib)
 			localStorage.setItem("currentIn", JSON.stringify(In))
+			localStorage.setItem("Ib", JSON.stringify(Ib))
+			localStorage.setItem("In", JSON.stringify(In))
+			localStorage.setItem("V", JSON.stringify(V))
+			localStorage.setItem("W", JSON.stringify(S))
+			localStorage.setItem("pf", JSON.stringify(pf))
 			return In
 		} else {
 			return "..."

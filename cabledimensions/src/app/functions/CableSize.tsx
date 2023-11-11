@@ -29,11 +29,14 @@ import { currentIt } from "./calculateIt"
 import { copperArray } from "./copperTable"
 import { conductorSize } from "../functions/choose"
 import { Terminal } from "lucide-react"
-
+import PdfGenerator from "./PDFGenerator"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
+	{
+		localStorage.setItem("insulation", JSON.stringify(insulation))
+	}
 	const storedCurrent = JSON.parse(localStorage.getItem("currentIn"))
 	const storedKG = JSON.parse(localStorage.getItem("KG"))
 
@@ -50,6 +53,20 @@ export function CableSize() {
 
 	const [isPopoverOpen, setPopoverOpen] = useState(false)
 	const [selectedPhase, setSelectedPhase] = useState("") // Default value set to "1"
+
+	// Find the selected cable material label
+	const selectedCableMaterialLabel =
+		cableMaterials.find((framework) => framework.value === value)?.label || ""
+
+	// Find the selected number of phases label
+	const selectedNumberOfPhasesLabel =
+		phaseOptions.find((option) => option.value === selectedPhase)?.label || ""
+
+	// Store the selected cable material label in local storage
+	localStorage.setItem("material", JSON.stringify(selectedCableMaterialLabel))
+
+	// Store the selected number of phases label in local storage
+	localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
 
 	return (
 		<div className="flex flex-col space-y-1.5">
@@ -211,6 +228,9 @@ export function CableSize() {
 					)}
 				</p>
 				<ClearVals />
+				<div className="">
+					<PdfGenerator />
+				</div>
 			</div>
 		</div>
 	)

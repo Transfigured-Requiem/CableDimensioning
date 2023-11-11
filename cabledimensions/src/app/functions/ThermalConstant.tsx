@@ -244,6 +244,7 @@ export function ThermalConstant() {
 						insulation
 					)}
 				</Badge>
+				{localStorage.setItem("T", JSON.stringify(selectedTemperature))}
 			</div>
 		</div>
 	)
