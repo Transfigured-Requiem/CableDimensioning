@@ -91,7 +91,7 @@ function copperSize(i: string, n: number, m: number) {
 			{/* <p>Size of conductor:</p> */}
 			{/* <p>First Value Greater Than Kt: {firstGreaterValue}</p> */}
 			<div className="">
-				<Badge variant="default" className="w-[40%]">
+				<Badge variant="default" className="w-[50%]">
 					<i>I</i>
 					<sub>z</sub>={output}
 					<span className="w-5"></span>
@@ -99,7 +99,7 @@ function copperSize(i: string, n: number, m: number) {
 				</Badge>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[40%]">
+				<Badge variant="secondary" className="w-[50%]">
 					<i>Size of Cu conductor</i>={conductorSize}
 					<span className="w-5"></span>
 					<i> [mm²]</i>
@@ -153,7 +153,7 @@ function aluminumSize(i: string, n: number, m: number) {
 			{/* <p>Size of conductor:</p> */}
 			{/* <p>First Value Greater Than Kt: {firstGreaterValue}</p> */}
 			<div className="">
-				<Badge variant="default" className="w-[40%]">
+				<Badge variant="default" className="w-[50%]">
 					<i>I</i>
 					<sub>z</sub>={output}
 					<span className="w-5"></span>
@@ -161,7 +161,7 @@ function aluminumSize(i: string, n: number, m: number) {
 				</Badge>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[40%]">
+				<Badge variant="secondary" className="w-[50%]">
 					<i>Size of Al conductor</i>={conductorSize}
 					<span className="w-5"></span>
 					<i> [mm²]</i>
@@ -178,7 +178,7 @@ function conductorSize(c: string, i: string, n: number, m: number) {
 	} else if (c === "al") {
 		return aluminumSize(i, n, m)
 	} else {
-		return "~~~"
+		return copperSize(i, n, m)
 	}
 	//return aluminumSize(i, n, m)
 }

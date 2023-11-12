@@ -24,6 +24,7 @@ const PdfGenerator = () => {
 
 		const Iz = localStorage.getItem("Iz") || "N/A"
 		const Size = localStorage.getItem("Size") || "N/A"
+		const Dv = localStorage.getItem("Dv") || "N/A"
 
 		// Create a string with the variable values
 		const fileContent = `
@@ -45,6 +46,7 @@ const PdfGenerator = () => {
 | Ambient Temperature (T)                 | ${T}     | °C   |
 | Cable Rating (Iz)                       | ${Iz}    |      |
 | Size                                    | ${Size}  | mm²  |
+| Voltage Drop                            | ${Dv}    | %    |
 `
 
 		// Example of how to use the fileContent string
@@ -58,9 +60,9 @@ const PdfGenerator = () => {
 	}
 
 	return (
-		<div>
+		<div className="grid justify-items-end  mt-4">
 			<Button
-				variant="secondary"
+				variant="outline"
 				className="text-md font-semibold"
 				onClick={downloadTextFile}
 			>

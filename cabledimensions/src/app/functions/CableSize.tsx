@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils"
-import React, { useState, useContext } from "react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import {
 	Command,
 	CommandEmpty,
@@ -7,30 +7,23 @@ import {
 	CommandInput,
 	CommandItem,
 } from "@/components/ui/command"
+import { Label } from "@/components/ui/label"
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover"
-import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { Check, ChevronsUpDown } from "lucide-react"
-import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
+import { useContext, useEffect, useState } from "react"
 
-import { MethodOfInstall } from "../calculator/page"
-import { phaseOptions } from "./constants"
-import { cableMaterials } from "./constants"
-import { TypeOfInsulation } from "../calculator/page"
+import { MethodOfInstall, TypeOfInsulation } from "../calculator/page"
 import ClearVals from "./clearValuesLocally"
-import { chooseColumn, aluminumSize } from "./chooseColumn"
-import { copperSize } from "../functions/choose"
+import { cableMaterials, phaseOptions } from "./constants"
 //import { copperSize, aluminumSize } from "./chooseColumn"
-import { currentIt } from "./calculateIt"
-import { copperArray } from "./copperTable"
 import { conductorSize } from "../functions/choose"
-import { Terminal } from "lucide-react"
 import PdfGenerator from "./PDFGenerator"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { voltageDrop } from "./voltageDrop"
 export function CableSize() {
 	const method = useContext(MethodOfInstall)
 	const insulation = useContext(TypeOfInsulation)
@@ -38,7 +31,27 @@ export function CableSize() {
 		localStorage.setItem("insulation", JSON.stringify(insulation))
 	}
 	const storedCurrent = JSON.parse(localStorage.getItem("currentIn"))
-	const storedKG = JSON.parse(localStorage.getItem("KG"))
+
+	const [storedKG, setStoredKG] = useState(() => {
+		try {
+			const data = localStorage.getItem("KG")
+			return data ? JSON.parse(data) : 1.0 // Provide a default value if needed
+		} catch (error) {
+			console.error("Error parsing KG from localStorage")
+			return 1.0 // Provide a default value if there's an error
+		}
+	})
+
+	useEffect(() => {
+		const data = localStorage.getItem("KG")
+		try {
+			const parsedData = data ? JSON.parse(data) : 1.0
+			setStoredKG(parsedData)
+		} catch (error) {
+			console.error("Error parsing KG from localStorage")
+			setStoredKG(1.0)
+		}
+	}, [])
 
 	const storedKT = JSON.parse(localStorage.getItem("KT"))
 	const storedKR = JSON.parse(localStorage.getItem("KR"))
@@ -67,6 +80,8 @@ export function CableSize() {
 
 	// Store the selected number of phases label in local storage
 	localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
+
+	const material = value
 
 	return (
 		<div className="flex flex-col space-y-1.5">
@@ -175,7 +190,7 @@ export function CableSize() {
 				</Popover>
 			</div>
 			<div className="">
-				<Badge variant="default" className="w-[40%]">
+				<Badge variant="default" className="w-[50%]">
 					<i>I</i>
 					<sub>t</sub>={theCurrentIt} <span className="w-5"></span>
 					<i> [A]</i>
@@ -218,7 +233,7 @@ export function CableSize() {
 						parseFloat(method)
 					)} */}
 				</p>
-				<p>
+				<div>
 					{/* <span className="text-yellow-500 font-bold">Current Column</span> = */}
 					{conductorSize(
 						value,
@@ -226,11 +241,16 @@ export function CableSize() {
 						parseFloat(selectedPhase),
 						parseFloat(method)
 					)}
-				</p>
-				<ClearVals />
-				<div className="">
-					<PdfGenerator />
 				</div>
+				<div>{voltageDrop(material)}</div>
+				{/* <div className="mt-4 flex flex-col items-end">
+					<ClearVals />
+					<PdfGenerator />
+				</div> */}
+			</div>
+			<div className="mt-4 flex flex-col items-end">
+				<ClearVals />
+				<PdfGenerator />
 			</div>
 		</div>
 	)

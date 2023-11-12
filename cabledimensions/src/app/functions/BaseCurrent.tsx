@@ -7,6 +7,7 @@ export function BaseCurrent() {
 	const [apparentPower, setApparentPower] = useState("")
 	const [powerFactor, setPowerFactor] = useState("")
 	const [selectedVoltage, setSelectedVoltage] = useState("") // Default voltage
+	const [length, setLength] = useState("")
 
 	// Function to handle input changes
 	const handleApparentPowerChange = (event) => {
@@ -22,9 +23,14 @@ export function BaseCurrent() {
 		setSelectedVoltage(event.target.value)
 	}
 
+	const handleLengthChange = (event) => {
+		setLength(event.target.value)
+	}
+
 	const S = parseFloat(apparentPower)
 	const pf = parseFloat(powerFactor)
 	const V = parseFloat(selectedVoltage)
+	const l = parseFloat(length)
 	// Calculate Ib
 	const calculateIb = () => {
 		// Convert input values to numbers and check for validity
@@ -48,6 +54,7 @@ export function BaseCurrent() {
 			localStorage.setItem("V", JSON.stringify(V))
 			localStorage.setItem("W", JSON.stringify(S))
 			localStorage.setItem("pf", JSON.stringify(pf))
+			localStorage.setItem("length", JSON.stringify(l))
 			return In
 		} else {
 			return "..."
@@ -81,6 +88,15 @@ export function BaseCurrent() {
 					placeholder="cos(θ)"
 					value={powerFactor}
 					onChange={handlePowerFactorChange}
+				/>
+			</div>
+			<div className="flex flex-col space-y-1.5">
+				<Label htmlFor="cable-length">Cable length</Label>
+				<Input
+					id="cable-length"
+					placeholder="l"
+					value={length}
+					onChange={handleLengthChange}
 				/>
 			</div>
 			<div className="">

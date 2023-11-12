@@ -9,6 +9,19 @@ const insulationMaterials = [
 	},
 ]
 
+const lambdaValues = {
+	"0": 0.08, // Multi/single-core cables in trefoil arrangement
+	"1": 0.08, // Multi-core cable in conduit in a thermally insulated wall
+	"2": 0.09, // Single-core cables touching in flat layers
+	"3": 0.09, // Multi-core cable in conduit on a wooden or masonry wall
+	"4": 0.13, // Single-core or multi-core cable on a wooden or masonry wall
+	"5": 0.13, // Multi-core cable in ducts in the ground
+	"6": 0.13, // Multi-core cables designed to be buried directly in the ground
+	"7": 0.13, // Multi-core cable in free air
+	"8": 0.09, // Single-core cables, touching in free air
+	"9": 0.13, // Single-core cables, spaced in free air
+}
+
 const installationMethods = [
 	{
 		value: "0",
@@ -109,4 +122,5 @@ export {
 	phaseOptions,
 	cableMaterials,
 	thermalResistivity,
+	lambdaValues,
 }
