@@ -89,12 +89,17 @@ export function CableArrangement() {
 	// Find the selected number of circuits label
 	const selectedNumberCktLabel =
 		validNumbers.find((number) => number.value === value1)?.label || ""
+	if (typeof window !== "undefined") {
+		// Store the selected arrangement label in local storage
+		localStorage.setItem(
+			"arrangement",
+			JSON.stringify(selectedArrangementLabel)
+		)
 
-	// Store the selected arrangement label in local storage
-	localStorage.setItem("arrangement", JSON.stringify(selectedArrangementLabel))
-
-	// Store the selected number of circuits label in local storage
-	localStorage.setItem("numberCkt", JSON.stringify(selectedNumberCktLabel))
+		// Store the selected number of circuits label in local storage
+		localStorage.setItem("numberCkt", JSON.stringify(selectedNumberCktLabel))
+		localStorage.setItem("KG", JSON.stringify(groupingConstant(arr[0], arr[1])))
+	}
 
 	return (
 		<div className="flex flex-col space-y-1.5">
@@ -221,10 +226,6 @@ export function CableArrangement() {
 					<span className="w-2"></span>=<span className="w-2"></span>
 					{groupingConstant(arr[0], arr[1])}
 				</Badge>
-				{localStorage.setItem(
-					"KG",
-					JSON.stringify(groupingConstant(arr[0], arr[1]))
-				)}
 			</div>
 		</div>
 	)

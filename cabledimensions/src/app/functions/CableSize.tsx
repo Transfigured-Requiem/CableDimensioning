@@ -74,12 +74,13 @@ export function CableSize() {
 	// Find the selected number of phases label
 	const selectedNumberOfPhasesLabel =
 		phaseOptions.find((option) => option.value === selectedPhase)?.label || ""
+	if (typeof window !== "undefined") {
+		// Store the selected cable material label in local storage
+		localStorage.setItem("material", JSON.stringify(selectedCableMaterialLabel))
 
-	// Store the selected cable material label in local storage
-	localStorage.setItem("material", JSON.stringify(selectedCableMaterialLabel))
-
-	// Store the selected number of phases label in local storage
-	localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
+		// Store the selected number of phases label in local storage
+		localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
+	}
 
 	const material = value
 

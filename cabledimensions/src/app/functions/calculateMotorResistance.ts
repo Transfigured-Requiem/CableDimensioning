@@ -10,7 +10,6 @@ export function calculateRes(
 	speed: number
 ) {
 	const startCurrent = (n * P) / (eff * V * pf * Math.sqrt(3))
-	localStorage.setItem("startCurrent", JSON.stringify(startCurrent))
 
 	const rotorResistance =
 		Math.pow(3 * Math.pow(V, 2) * eff * pf, 2) /
@@ -20,8 +19,12 @@ export function calculateRes(
 			k *
 			n *
 			Math.pow(P, 2))
-	localStorage.setItem("rotorResistance", JSON.stringify(rotorResistance))
 
 	const startTorque = (30 * (V * V)) / (2 * Math.PI * f * rotorResistance)
-	localStorage.setItem("startTorque", JSON.stringify(startTorque))
+
+	if (typeof window !== "undefined") {
+		localStorage.setItem("startCurrent", JSON.stringify(startCurrent))
+		localStorage.setItem("rotorResistance", JSON.stringify(rotorResistance))
+		localStorage.setItem("startTorque", JSON.stringify(startTorque))
+	}
 }

@@ -20,9 +20,11 @@ export function ResistanceMotor() {
 	const [powerFactor, setPowerFactor] = useState("")
 	const [sourceFrequency, setSourceFrequency] = useState("")
 	//const [voltage, setVoltage] = useState("")
-	const rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
-	const startTorque = localStorage.getItem("startTorque") || "N/A"
-	const startCurrent = localStorage.getItem("startCurrent") || "N/A"
+	if (typeof window !== "undefined") {
+		const rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
+		const startTorque = localStorage.getItem("startTorque") || "N/A"
+		const startCurrent = localStorage.getItem("startCurrent") || "N/A"
+	}
 
 	const [buttonPressed, setButtonPressed] = useState(false)
 

@@ -48,13 +48,15 @@ export function BaseCurrent() {
 		if (!isNaN(S) && !isNaN(pf) && !isNaN(V)) {
 			let Ib = S / (pf * V)
 			const In = Math.round(Ib)
-			localStorage.setItem("currentIn", JSON.stringify(In))
-			localStorage.setItem("Ib", JSON.stringify(Ib))
-			localStorage.setItem("In", JSON.stringify(In))
-			localStorage.setItem("V", JSON.stringify(V))
-			localStorage.setItem("W", JSON.stringify(S))
-			localStorage.setItem("pf", JSON.stringify(pf))
-			localStorage.setItem("length", JSON.stringify(l))
+			if (typeof window !== "undefined") {
+				localStorage.setItem("currentIn", JSON.stringify(In))
+				localStorage.setItem("Ib", JSON.stringify(Ib))
+				localStorage.setItem("In", JSON.stringify(In))
+				localStorage.setItem("V", JSON.stringify(V))
+				localStorage.setItem("W", JSON.stringify(S))
+				localStorage.setItem("pf", JSON.stringify(pf))
+				localStorage.setItem("length", JSON.stringify(l))
+			}
 			return In
 		} else {
 			return "..."

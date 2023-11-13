@@ -45,7 +45,9 @@ export default function Calculator() {
 	const [value, setValue] = useState("")
 	const [open2, setOpen2] = useState(false)
 	const [value2, setValue2] = useState("")
-	localStorage.setItem("mtd", JSON.stringify(value))
+	if (typeof window !== "undefined") {
+		localStorage.setItem("mtd", JSON.stringify(value))
+	}
 	return (
 		<div className="flex flex-col items-center justify-center overflow-hidden">
 			<div className="m-8 flex justify-center justify-items-center justify-self-center overflow-hidden h-[780px]">

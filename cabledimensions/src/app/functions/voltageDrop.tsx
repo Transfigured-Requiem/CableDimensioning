@@ -6,17 +6,18 @@ import { Badge } from "@/components/ui/badge"
 
 export function voltageDrop(mat: string) {
 	//const method = useContext(MethodOfInstall)
+	if (typeof window !== "undefined") {
+		const pf = parseFloat(localStorage.getItem("pf"))
+		const qf = Math.sin(Math.acos(pf))
+		const Ib = parseFloat(localStorage.getItem("Ib")) || 1
+		const phs = parseFloat(localStorage.getItem("phases"))
+		const Size = parseFloat(localStorage.getItem("Size"))
+		const V = parseFloat(localStorage.getItem("V")) || 1
+		//const mat = localStorage.getItem("material") || "N/A"
+		const len = parseFloat(localStorage.getItem("length")) || 1
 
-	const pf = parseFloat(localStorage.getItem("pf"))
-	const qf = Math.sin(Math.acos(pf))
-	const Ib = parseFloat(localStorage.getItem("Ib")) || 1
-	const phs = parseFloat(localStorage.getItem("phases"))
-	const Size = parseFloat(localStorage.getItem("Size"))
-	const V = parseFloat(localStorage.getItem("V")) || 1
-	//const mat = localStorage.getItem("material") || "N/A"
-	const len = parseFloat(localStorage.getItem("length")) || 1
-
-	const mtd = localStorage.getItem("mtd")
+		const mtd = localStorage.getItem("mtd")
+	}
 	// const lambdaValues = {
 	// 	"0": 0.08, // Multi/single-core cables in trefoil arrangement
 	// 	"1": 0.08, // Multi-core cable in conduit in a thermally insulated wall
