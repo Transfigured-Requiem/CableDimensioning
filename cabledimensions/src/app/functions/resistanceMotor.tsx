@@ -20,10 +20,13 @@ export function ResistanceMotor() {
 	const [powerFactor, setPowerFactor] = useState("")
 	const [sourceFrequency, setSourceFrequency] = useState("")
 	//const [voltage, setVoltage] = useState("")
+	let rotorResistance
+	let startCurrent
+	let startTorque
 	if (typeof window !== "undefined") {
-		const rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
-		const startTorque = localStorage.getItem("startTorque") || "N/A"
-		const startCurrent = localStorage.getItem("startCurrent") || "N/A"
+		rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
+		startTorque = localStorage.getItem("startTorque") || "N/A"
+		startCurrent = localStorage.getItem("startCurrent") || "N/A"
 	}
 
 	const [buttonPressed, setButtonPressed] = useState(false)
@@ -35,6 +38,7 @@ export function ResistanceMotor() {
 		// Perform your calculations and update the state variables here
 		setButtonPressed(true)
 	}
+
 	return (
 		<div className="space-y-2.5">
 			<div className="flex flex-col space-y-1.5">
@@ -193,35 +197,33 @@ export function ResistanceMotor() {
 					Calculate
 				</Button> */}
 
-					{buttonPressed && (
-						<div>
-							{/* Your Badge components here */}
-							<div className="">
-								<Badge variant="default" className="w-[40%]">
-									<i>R</i>
-									<sub> rotor</sub>= {rotorResistance}
-									<span className="w-5"></span>
-									<i> [Ohm]</i>
-								</Badge>
-							</div>
-							<div className="">
-								<Badge variant="secondary" className="w-[40%]">
-									<i>T</i>
-									<sub> start</sub>= {startTorque}
-									<span className="w-5"></span>
-									<i> [Nm]</i>
-								</Badge>
-							</div>
-							<div className="">
-								<Badge variant="secondary" className="w-[40%]">
-									<i>I</i>
-									<sub> rotor</sub>= {startCurrent}
-									<span className="w-5"></span>
-									<i> [A]</i>
-								</Badge>
-							</div>
+					<div>
+						{/* Your Badge components here */}
+						<div className="">
+							<Badge variant="default" className="w-[40%]">
+								<i>R</i>
+								<sub> rotor</sub>= {rotorResistance}
+								<span className="w-5"></span>
+								<i> [Ohm]</i>
+							</Badge>
 						</div>
-					)}
+						<div className="">
+							<Badge variant="secondary" className="w-[40%]">
+								<i>T</i>
+								<sub> start</sub>= {startTorque}
+								<span className="w-5"></span>
+								<i> [Nm]</i>
+							</Badge>
+						</div>
+						<div className="">
+							<Badge variant="secondary" className="w-[40%]">
+								<i>I</i>
+								<sub> rotor</sub>= {startCurrent}
+								<span className="w-5"></span>
+								<i> [A]</i>
+							</Badge>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

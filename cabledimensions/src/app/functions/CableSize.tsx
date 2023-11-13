@@ -52,10 +52,14 @@ export function CableSize() {
 			setStoredKG(1.0)
 		}
 	}, [])
-
-	const storedKT = JSON.parse(localStorage.getItem("KT"))
-	const storedKR = JSON.parse(localStorage.getItem("KR"))
-	const currentIt2 = JSON.parse(localStorage.getItem("currentItdb"))
+	let storedKT
+	let storedKR
+	let currentIt2
+	if (typeof window !== "undefined") {
+		storedKT = JSON.parse(localStorage.getItem("KT"))
+		storedKR = JSON.parse(localStorage.getItem("KR"))
+		currentIt2 = JSON.parse(localStorage.getItem("currentItdb"))
+	}
 	// !isNaN(storedKG)
 	// 	? (storedKG = 1)
 	// 	: (storedKG = JSON.parse(localStorage.getItem("KG")))
@@ -74,13 +78,12 @@ export function CableSize() {
 	// Find the selected number of phases label
 	const selectedNumberOfPhasesLabel =
 		phaseOptions.find((option) => option.value === selectedPhase)?.label || ""
-	if (typeof window !== "undefined") {
-		// Store the selected cable material label in local storage
-		localStorage.setItem("material", JSON.stringify(selectedCableMaterialLabel))
 
-		// Store the selected number of phases label in local storage
-		localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
-	}
+	// Store the selected cable material label in local storage
+	localStorage.setItem("material", JSON.stringify(selectedCableMaterialLabel))
+
+	// Store the selected number of phases label in local storage
+	localStorage.setItem("phases", JSON.stringify(selectedNumberOfPhasesLabel))
 
 	const material = value
 

@@ -6,17 +6,25 @@ import { Badge } from "@/components/ui/badge"
 
 export function voltageDrop(mat: string) {
 	//const method = useContext(MethodOfInstall)
+	let pf
+	let qf
+	let Ib
+	let phs
+	let Size
+	let V
+	let len
+	let mtd
 	if (typeof window !== "undefined") {
-		const pf = parseFloat(localStorage.getItem("pf"))
-		const qf = Math.sin(Math.acos(pf))
-		const Ib = parseFloat(localStorage.getItem("Ib")) || 1
-		const phs = parseFloat(localStorage.getItem("phases"))
-		const Size = parseFloat(localStorage.getItem("Size"))
-		const V = parseFloat(localStorage.getItem("V")) || 1
+		pf = parseFloat(localStorage.getItem("pf"))
+		qf = Math.sin(Math.acos(pf))
+		Ib = parseFloat(localStorage.getItem("Ib")) || 1
+		phs = parseFloat(localStorage.getItem("phases"))
+		Size = parseFloat(localStorage.getItem("Size"))
+		V = parseFloat(localStorage.getItem("V")) || 1
 		//const mat = localStorage.getItem("material") || "N/A"
-		const len = parseFloat(localStorage.getItem("length")) || 1
+		len = parseFloat(localStorage.getItem("length")) || 1
 
-		const mtd = localStorage.getItem("mtd")
+		mtd = localStorage.getItem("mtd")
 	}
 	// const lambdaValues = {
 	// 	"0": 0.08, // Multi/single-core cables in trefoil arrangement
