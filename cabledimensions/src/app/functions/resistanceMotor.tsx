@@ -10,6 +10,45 @@ import { calculateRes } from "./calculateMotorResistance"
 
 //import { copperSize, aluminumSize } from "./chooseColumn"
 export function ResistanceMotor() {
+	let rotorResistance
+	let startCurrent
+	let startTorque
+	function calculateRes(
+		V: number,
+		P: number,
+		poles: number,
+		k: number, // Include k as a parameter
+		n: number,
+		eff: number,
+		pf: number,
+		f: number,
+		speed: number
+	) {
+		startCurrent = (n * P) / (eff * V * pf * Math.sqrt(3))
+
+		rotorResistance =
+			Math.pow(3 * Math.pow(V, 2) * eff * pf, 2) /
+			(Math.PI *
+				(poles / 120) *
+				Math.abs((120 * f) / poles - speed) *
+				k *
+				n *
+				Math.pow(P, 2))
+
+		startTorque = (30 * (V * V)) / (2 * Math.PI * f * rotorResistance)
+
+		// if (typeof window !== "undefined") {
+		// 	localStorage.setItem("startCurrent", JSON.stringify(startCurrent))
+		// 	localStorage.setItem("rotorResistance", JSON.stringify(rotorResistance))
+		// 	localStorage.setItem("startTorque", JSON.stringify(startTorque))
+		// }
+	}
+	// if (typeof window !== "undefined") {
+	// 	rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
+	// 	startTorque = localStorage.getItem("startTorque") || "N/A"
+	// 	startCurrent = localStorage.getItem("startCurrent") || "N/A"
+	// }
+
 	const [voltage, setVoltage] = useState("")
 	const [power, setPower] = useState("")
 	const [speed, setSpeed] = useState("")
@@ -20,14 +59,6 @@ export function ResistanceMotor() {
 	const [powerFactor, setPowerFactor] = useState("")
 	const [sourceFrequency, setSourceFrequency] = useState("")
 	//const [voltage, setVoltage] = useState("")
-	let rotorResistance
-	let startCurrent
-	let startTorque
-	if (typeof window !== "undefined") {
-		rotorResistance = localStorage.getItem("rotorResistance") || "N/A"
-		startTorque = localStorage.getItem("startTorque") || "N/A"
-		startCurrent = localStorage.getItem("startCurrent") || "N/A"
-	}
 
 	const [buttonPressed, setButtonPressed] = useState(false)
 
@@ -175,7 +206,7 @@ export function ResistanceMotor() {
 
 			<div className="">
 				<div>
-					<div className="relative">
+					{/* <div className="relative">
 						<Button
 							variant="default"
 							className="text-md font-semibold absolute right-0"
@@ -183,7 +214,7 @@ export function ResistanceMotor() {
 						>
 							Calculate
 						</Button>
-					</div>
+					</div> */}
 
 					{/* <form onSubmit={(e) => e.preventDefault()}> */}
 					{/* Other form elements can go here */}
@@ -200,7 +231,7 @@ export function ResistanceMotor() {
 					<div>
 						{/* Your Badge components here */}
 						<div className="">
-							<Badge variant="default" className="w-[40%]">
+							<Badge variant="default" className="w-[50%]">
 								<i>R</i>
 								<sub> rotor</sub>= {rotorResistance}
 								<span className="w-5"></span>
@@ -208,7 +239,7 @@ export function ResistanceMotor() {
 							</Badge>
 						</div>
 						<div className="">
-							<Badge variant="secondary" className="w-[40%]">
+							<Badge variant="secondary" className="w-[50%]">
 								<i>T</i>
 								<sub> start</sub>= {startTorque}
 								<span className="w-5"></span>
@@ -216,7 +247,7 @@ export function ResistanceMotor() {
 							</Badge>
 						</div>
 						<div className="">
-							<Badge variant="secondary" className="w-[40%]">
+							<Badge variant="secondary" className="w-[50%]">
 								<i>I</i>
 								<sub> rotor</sub>= {startCurrent}
 								<span className="w-5"></span>

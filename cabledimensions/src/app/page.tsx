@@ -40,7 +40,7 @@ export default function Home() {
 					{/* Homework #02 */}
 					<div className="flex-1">
 						<h1 className="max-w-4xl text-4xl font-bold md:text-6xl lg:text-7xl">
-							<span className="text-blue-600">IEC 60364-5-52</span> Cable
+							<span className="text-blue-600">IEC 60364-5-52</span> Cable Size &
 							Dimensioning
 						</h1>
 						<div className="mt-20"></div>
