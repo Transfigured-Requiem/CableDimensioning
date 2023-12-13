@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function Home() {
 	return (
-		<div className="overflow-hidden h-[94vh] ">
+		<div className=" ">
 			<MaxWidthWrapper className="mb-12 mt-10 sm:mt-40 flex flex-col items-center justify-center text-center ">
 				{/* <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
 					<p className="text-sm font-semibold text-gray-700">Calculate now!</p>
@@ -14,7 +14,7 @@ export default function Home() {
 				<div className="flex flex-col space-y-8 space-x-7 lg:flex-row lg:space-y-0 lg:space-x-8">
 					{/* Homework #01 */}
 					<div className="flex-1">
-						<h1 className="max-w-4xl text-4xl font-bold md:text-6xl lg:text-7xl">
+						<h1 className="max-w-3xl text-3xl font-bold md:text-4xl lg:text-5xl">
 							Wound Rotor Motor{" "}
 							<span className="text-blue-600">External Resistance </span>
 						</h1>
@@ -39,7 +39,7 @@ export default function Home() {
 
 					{/* Homework #02 */}
 					<div className="flex-1">
-						<h1 className="max-w-4xl text-4xl font-bold md:text-6xl lg:text-7xl">
+						<h1 className="max-w-3xl text-3xl font-bold md:text-4xl lg:text-5xl">
 							<span className="text-blue-600">IEC 60364-5-52</span> Cable Size &
 							Dimensioning
 						</h1>
@@ -66,7 +66,10 @@ export default function Home() {
 				<p className="mt-20 max-w-prose sm:text-xl">
 					<span className=" text-blue-400">
 						Made by: <br />
-						<strong> Abderrahmane Taha Khenchouche</strong>
+						<strong>
+							{" "}
+							Abderrahmane Taha Khenchouche <br /> Abdelmalek Mahmoud
+						</strong>
 					</span>
 				</p>
 
@@ -105,7 +108,7 @@ export default function Home() {
 					</div>
 					{/* 
 					<div>
-						<div className="mx-auto max-w-6xl px-6 lg:px-8">
+						<div className="mx-auto max-w-4xl px-6 lg:px-8">
 							<div className="mt-16 flow-root sm:mt-24">
 								<div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
 									<Image

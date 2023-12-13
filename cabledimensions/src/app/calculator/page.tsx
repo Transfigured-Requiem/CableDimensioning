@@ -245,7 +245,10 @@ export default function Calculator() {
 			</div>
 			<div className="fixed bottom-0 right-0  p-4">
 				<p className="text-blue-500">
-					Made by: <strong>Abderrahmane Taha Khenchouche.</strong>
+					Made by: <br />
+					<strong>
+						Abderrahmane Taha Khenchouche <br /> Abdelmalek Mahmoud
+					</strong>
 				</p>
 			</div>
 		</div>
